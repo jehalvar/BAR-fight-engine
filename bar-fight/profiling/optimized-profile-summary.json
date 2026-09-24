@@ -1,0 +1,423 @@
+{
+  "schema": 1,
+  "kind": "optimized_profiler_attribution_not_timing_ab",
+  "diagnostic_not_timing_ab": true,
+  "evidence_directory": "E:\\BAR-Replay-Worker\\optimized-profile-20260924",
+  "executable_sha256": "c7e4d27047f9fb1dc33b98ba9a69ca418b2e979953c7d03a9ac35c4b3274347a",
+  "replay_sha256": "12e42ae02c08aada80770034a1446f27c469751f9d978d3640acdaf8175d8669",
+  "controller_config_sha256": "f68058ffab45b3b1eeb809abe9ff342e76318138a76f0938f8f891cf80b3bd14",
+  "engine_wall_seconds_diagnostic_only": 97.54940282698954,
+  "startup": {
+    "loading_seconds": 36.074361,
+    "scan_including_write_seconds": 0.232,
+    "load_map_seconds": 1.67,
+    "tile_stage_interval_seconds": 4.369748,
+    "square_stage_interval_seconds": 0.3110809999999997,
+    "pfs_finalize_reported_seconds": 9.428,
+    "lua_rules_stage_interval_seconds": 5.089123000000001,
+    "lua_ui_to_frame_zero_seconds": 9.555257000000005
+  },
+  "path_checksum": "76174e00",
+  "phase_snapshots": {
+    "frame0": {
+      "kind": "snapshot",
+      "phase": "frame0",
+      "frame": 0,
+      "names": 44
+    },
+    "game_over": {
+      "kind": "snapshot",
+      "phase": "game_over",
+      "frame": 11414,
+      "names": 82
+    },
+    "shutdown": {
+      "kind": "snapshot",
+      "phase": "shutdown",
+      "frame": 11425,
+      "names": 82
+    }
+  },
+  "post_game_over_frames": 11,
+  "inclusive_rankings": {
+    "frame0_to_shutdown": [
+      {
+        "name": "Sim",
+        "elapsed_ms": 55611.73046875
+      },
+      {
+        "name": "ThreadPool::AddTask",
+        "elapsed_ms": 21624.029296875
+      },
+      {
+        "name": "ThreadPool::WaitFor",
+        "elapsed_ms": 19816.3671875
+      },
+      {
+        "name": "ThreadPool::RunTask",
+        "elapsed_ms": 18946.98388671875
+      },
+      {
+        "name": "Lua::Callins::Synced",
+        "elapsed_ms": 9242.263046264648
+      },
+      {
+        "name": "Sim::Script",
+        "elapsed_ms": 9170.0869140625
+      },
+      {
+        "name": "Sim::Path",
+        "elapsed_ms": 9066.9501953125
+      },
+      {
+        "name": "CUnitScriptEngine::Tick",
+        "elapsed_ms": 8972.0400390625
+      },
+      {
+        "name": "Sim::Path::MapUpdates",
+        "elapsed_ms": 8211.013671875
+      },
+      {
+        "name": "Sim::GameFrame",
+        "elapsed_ms": 7685.08935546875
+      },
+      {
+        "name": "Sim::Features::UpdatePreFrame",
+        "elapsed_ms": 7626.484375
+      },
+      {
+        "name": "Sim::Unit::MoveType",
+        "elapsed_ms": 7018.95458984375
+      },
+      {
+        "name": "Lua::Callins::Unsynced",
+        "elapsed_ms": 4180.8883056640625
+      },
+      {
+        "name": "Sim::Unit::Update",
+        "elapsed_ms": 3359.448486328125
+      },
+      {
+        "name": "Sim::Unit::SlowUpdate",
+        "elapsed_ms": 2105.50830078125
+      },
+      {
+        "name": "Misc::Profiler::AddTime",
+        "elapsed_ms": 1937.6259460449219
+      },
+      {
+        "name": "Sim::Unit::MoveType::1::UpdateTraversalPlan",
+        "elapsed_ms": 1873.394775390625
+      },
+      {
+        "name": "Sim::Unit::UpdatePreFrame",
+        "elapsed_ms": 1769.4168701171875
+      },
+      {
+        "name": "Sim::Unit::MoveType::5::Update",
+        "elapsed_ms": 1641.1976318359375
+      },
+      {
+        "name": "Sim::Los",
+        "elapsed_ms": 1614.637939453125
+      },
+      {
+        "name": "Sim::Unit::MoveType::3::CollisionDetection",
+        "elapsed_ms": 1151.283935546875
+      },
+      {
+        "name": "Sim::Unit::MoveType::2::UpdatePreCollisions",
+        "elapsed_ms": 1099.6365966796875
+      },
+      {
+        "name": "Sim::Unit::Weapon",
+        "elapsed_ms": 1070.500732421875
+      },
+      {
+        "name": "Sim::Unit::UpdateWeaponVectors",
+        "elapsed_ms": 894.989990234375
+      },
+      {
+        "name": "Lua::CollectGarbage::Synced",
+        "elapsed_ms": 470.9550094604492
+      }
+    ],
+    "frame0_to_game_over": [
+      {
+        "name": "Sim",
+        "elapsed_ms": 55510.65234375
+      },
+      {
+        "name": "ThreadPool::AddTask",
+        "elapsed_ms": 21585.453125
+      },
+      {
+        "name": "ThreadPool::WaitFor",
+        "elapsed_ms": 19779.603515625
+      },
+      {
+        "name": "ThreadPool::RunTask",
+        "elapsed_ms": 18911.39208984375
+      },
+      {
+        "name": "Lua::Callins::Synced",
+        "elapsed_ms": 9208.156600952148
+      },
+      {
+        "name": "Sim::Script",
+        "elapsed_ms": 9156.9169921875
+      },
+      {
+        "name": "Sim::Path",
+        "elapsed_ms": 9044.955078125
+      },
+      {
+        "name": "CUnitScriptEngine::Tick",
+        "elapsed_ms": 8959.1484375
+      },
+      {
+        "name": "Sim::Path::MapUpdates",
+        "elapsed_ms": 8189.2578125
+      },
+      {
+        "name": "Sim::GameFrame",
+        "elapsed_ms": 7654.53564453125
+      },
+      {
+        "name": "Sim::Features::UpdatePreFrame",
+        "elapsed_ms": 7619.57177734375
+      },
+      {
+        "name": "Sim::Unit::MoveType",
+        "elapsed_ms": 7009.41943359375
+      },
+      {
+        "name": "Lua::Callins::Unsynced",
+        "elapsed_ms": 4163.0743408203125
+      },
+      {
+        "name": "Sim::Unit::Update",
+        "elapsed_ms": 3355.585693359375
+      },
+      {
+        "name": "Sim::Unit::SlowUpdate",
+        "elapsed_ms": 2102.79345703125
+      },
+      {
+        "name": "Misc::Profiler::AddTime",
+        "elapsed_ms": 1935.5375671386719
+      },
+      {
+        "name": "Sim::Unit::MoveType::1::UpdateTraversalPlan",
+        "elapsed_ms": 1870.4482421875
+      },
+      {
+        "name": "Sim::Unit::UpdatePreFrame",
+        "elapsed_ms": 1767.1949462890625
+      },
+      {
+        "name": "Sim::Unit::MoveType::5::Update",
+        "elapsed_ms": 1639.2054443359375
+      },
+      {
+        "name": "Sim::Los",
+        "elapsed_ms": 1613.49462890625
+      },
+      {
+        "name": "Sim::Unit::MoveType::3::CollisionDetection",
+        "elapsed_ms": 1149.842041015625
+      },
+      {
+        "name": "Sim::Unit::MoveType::2::UpdatePreCollisions",
+        "elapsed_ms": 1098.27197265625
+      },
+      {
+        "name": "Sim::Unit::Weapon",
+        "elapsed_ms": 1070.0218505859375
+      },
+      {
+        "name": "Sim::Unit::UpdateWeaponVectors",
+        "elapsed_ms": 893.7323608398438
+      },
+      {
+        "name": "Lua::CollectGarbage::Synced",
+        "elapsed_ms": 470.95372772216797
+      }
+    ],
+    "game_over_to_shutdown": [
+      {
+        "name": "Sim",
+        "elapsed_ms": 101.078125
+      },
+      {
+        "name": "ThreadPool::AddTask",
+        "elapsed_ms": 38.576171875
+      },
+      {
+        "name": "ThreadPool::WaitFor",
+        "elapsed_ms": 36.763671875
+      },
+      {
+        "name": "ThreadPool::RunTask",
+        "elapsed_ms": 35.591796875
+      },
+      {
+        "name": "Lua::Callins::Synced",
+        "elapsed_ms": 34.1064453125
+      },
+      {
+        "name": "Sim::GameFrame",
+        "elapsed_ms": 30.5537109375
+      },
+      {
+        "name": "Sim::Path",
+        "elapsed_ms": 21.9951171875
+      },
+      {
+        "name": "Sim::Path::MapUpdates",
+        "elapsed_ms": 21.755859375
+      },
+      {
+        "name": "Lua::Callins::Unsynced",
+        "elapsed_ms": 17.81396484375
+      },
+      {
+        "name": "Sim::Script",
+        "elapsed_ms": 13.169921875
+      },
+      {
+        "name": "CUnitScriptEngine::Tick",
+        "elapsed_ms": 12.8916015625
+      },
+      {
+        "name": "Sim::Unit::MoveType",
+        "elapsed_ms": 9.53515625
+      },
+      {
+        "name": "Sim::Features::UpdatePreFrame",
+        "elapsed_ms": 6.91259765625
+      },
+      {
+        "name": "Sim::Unit::Update",
+        "elapsed_ms": 3.86279296875
+      },
+      {
+        "name": "Sim::Unit::MoveType::1::UpdateTraversalPlan",
+        "elapsed_ms": 2.946533203125
+      },
+      {
+        "name": "Sim::Unit::SlowUpdate",
+        "elapsed_ms": 2.71484375
+      },
+      {
+        "name": "Sim::Unit::UpdatePreFrame",
+        "elapsed_ms": 2.221923828125
+      },
+      {
+        "name": "Misc::Profiler::AddTime",
+        "elapsed_ms": 2.08837890625
+      },
+      {
+        "name": "Sim::Unit::MoveType::5::Update",
+        "elapsed_ms": 1.9921875
+      },
+      {
+        "name": "Sim::SmoothHeightMesh::UpdateSmoothMesh",
+        "elapsed_ms": 1.5317916870117188
+      },
+      {
+        "name": "Sim::Unit::MoveType::3::CollisionDetection",
+        "elapsed_ms": 1.44189453125
+      },
+      {
+        "name": "Sim::Unit::MoveType::2::UpdatePreCollisions",
+        "elapsed_ms": 1.3646240234375
+      },
+      {
+        "name": "Sim::Unit::UpdateWeaponVectors",
+        "elapsed_ms": 1.25762939453125
+      },
+      {
+        "name": "Sim::Los",
+        "elapsed_ms": 1.143310546875
+      },
+      {
+        "name": "Update",
+        "elapsed_ms": 0.968017578125
+      }
+    ]
+  },
+  "cache_observation": {
+    "cache_before": [
+      {
+        "name": "ArchiveCache22.lua",
+        "size": 4242221,
+        "sha256": "39fab61dcb2fbc1910d7e7803a98f96d4a3472520d96106cec74fc2fa2588999",
+        "inode": 1577871,
+        "mtime_ns": 1790255450205931948,
+        "ctime_ns": 1790255450205931948
+      }
+    ],
+    "cache_after": [
+      {
+        "name": "ArchiveCache22.lua",
+        "size": 4242221,
+        "sha256": "39fab61dcb2fbc1910d7e7803a98f96d4a3472520d96106cec74fc2fa2588999",
+        "inode": 1577871,
+        "mtime_ns": 1790255451778916368,
+        "ctime_ns": 1790255451778916368
+      }
+    ],
+    "files": [
+      {
+        "name": "ArchiveCache22.lua",
+        "content_identical": true,
+        "metadata_changed": true
+      }
+    ],
+    "interpretation": "Changed timestamps with identical bytes corroborate cache rewrite; no isolated writer duration is measured."
+  },
+  "independent_proof": {
+    "kind": "independent_optimized_profile_raw_proof",
+    "engine_executed": false,
+    "reference": "Original official75 capture streams and every-frame checksums",
+    "exact_stream_rows": {
+      "telemetry.jsonl": 28,
+      "team-stats.jsonl": 434,
+      "unit-observations.jsonl": 2815
+    },
+    "exact_checksum_rows": 11415,
+    "fresh_source_parse_equal": true,
+    "fresh_unchanged_capture_validator": true,
+    "fresh_capture_report_exactly_equal": true,
+    "footer": {
+      "status": "matched",
+      "teams_compared": 16,
+      "metrics_compared": 112,
+      "teams_unavailable": [],
+      "mismatches": [],
+      "max_absolute_difference": 2.2737367544323206e-13,
+      "float_tolerance": "two float32 ULPs, minimum 0.000001; integer counters exact"
+    },
+    "unchanged_cache_content_with_changed_mtime_ctime": true,
+    "controller": {
+      "kind": "profile",
+      "config_sha256": "f68058ffab45b3b1eeb809abe9ff342e76318138a76f0938f8f891cf80b3bd14",
+      "returncode": 0,
+      "error": null,
+      "diagnostic_state": "inactive",
+      "cleanup_errors": [],
+      "all_affinities_restored": true,
+      "worker_pids_unchanged": true,
+      "worker_restart_counts_unchanged": true
+    },
+    "exact_production_before_after": true,
+    "restored_workers": 20,
+    "provenance": "Raw copied evidence is hashed locally; source/runner/widget/replay pins checked against original receipts."
+  },
+  "raw_profiler_sha256": "95d856850576efd9ce1ce68fa930d584f92b23aa658443bc73f1fceb684aca2d",
+  "full_independent_proof_sha256": "91e7f0ead431f5a3c20a89808e08ed1b737430df7c4219a868b7d6428066494a",
+  "full_diagnostic_summary_sha256": "465ab5a4828ddb6777db3acc4e58e4b3c06ed71165f5c2957745fbfeacdfe71e",
+  "limitations": "Full profiler instrumentation adds overhead. Nested/MT/Lua buckets overlap; do not sum them. Snapshots taken within callbacks omit still-open outer scopes until they close. GameOver-to-Shutdown includes the final open Sim scope, any explicitly recorded post-GameOver frames, and teardown. Frame-zero-to-Shutdown uses the earlier diagnostic boundary names, but must not be treated as an equal-length simulation window. Name discovery is periodically refreshed; rare late first-use buckets may be absent. No engine latency or fleet-throughput claim is valid from this run.",
+  "ai_assistance": "OpenAI Codex assisted with analysis and evidence checks."
+}

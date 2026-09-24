@@ -36,14 +36,17 @@ def analyse_profiler(source, final_frame, options=None):
     require(meta and meta["diagnostic_not_timing_ab"] is True and meta["command"] == "debug 1 0",
             "Not the supported diagnostic")
     require(ending and ending["baseline_frame0"] is True, "Missing ending/frame-zero baseline")
-    require(ending["game_over_frame"] == ending["last_frame"] == final_frame, "Profiler GameOver mismatch")
+    require(ending["game_over_frame"] == final_frame, "Profiler GameOver mismatch")
+    shutdown_frame = ending["last_frame"]
+    require(type(shutdown_frame) is int and shutdown_frame >= final_frame, "Invalid profiler Shutdown frame")
     expected_phases = ["frame0", "game_over", "shutdown"] if options is not None else ["frame0", "shutdown"]
     require(list(snapshots) == expected_phases, "Missing/unordered profiler phases")
     if options is not None:
         require(meta.get("schema") == 2 and meta.get("options") == options, "Wrong profiler options/schema")
     require(snapshots["frame0"]["frame"] == 0, "Wrong baseline frame")
     for phase in expected_phases[1:]:
-        require(snapshots[phase]["frame"] == final_frame, "Wrong final phase frame")
+        expected_frame = shutdown_frame if phase == "shutdown" else final_frame
+        require(snapshots[phase]["frame"] == expected_frame, "Wrong final phase frame")
     require(all(snapshots[phase]["names"] == len(rows) for phase, rows in records.items()), "Incomplete snapshot")
     rankings = {}
     intervals = [("frame0", "shutdown")]
@@ -55,12 +58,13 @@ def analyse_profiler(source, final_frame, options=None):
                    for name, total in records[end].items()]
         require(all(row["elapsed_ms"] >= 0 for row in ranking), "Profiler totals regressed")
         rankings[begin + "_to_" + end] = sorted(ranking, key=lambda row: row["elapsed_ms"], reverse=True)
-    return dict(meta=meta, snapshots=snapshots, ending=ending, rankings=rankings)
+    return dict(meta=meta, snapshots=snapshots, ending=ending, rankings=rankings,
+        post_game_over_frames=shutdown_frame - final_frame)
 
 
 def analyse_run(directory):
-    benchmark = json.loads((directory / "benchmark.json").read_text())
-    diagnostic = json.loads((directory / "profile-diagnostic.json").read_text())
+    benchmark = json.loads((directory / "benchmark.json").read_text(encoding="utf-8"))
+    diagnostic = json.loads((directory / "profile-diagnostic.json").read_text(encoding="utf-8"))
     require(benchmark["options"] == 151 and benchmark["valid_capture"] is True
             and benchmark["equivalent"] is True and benchmark["errors"] == []
             and benchmark["production_validation_unchanged"] is True
@@ -71,10 +75,10 @@ def analyse_run(directory):
     source = (directory / "LuaUI/fork-profiler.jsonl").read_bytes()
     result = analyse_profiler(source.decode(), int(benchmark["end"]["frame"]), options=151)
     result.update(schema=1, kind="optimized_profiler_attribution_not_timing_ab", benchmark=benchmark,
-        diagnostic=diagnostic, startup=startup((directory / "infolog.txt").read_text()),
-        cache_observation=json.loads((directory / "profile-cache-observation.json").read_text()),
+        diagnostic=diagnostic, startup=startup((directory / "infolog.txt").read_text(encoding="utf-8")),
+        cache_observation=json.loads((directory / "profile-cache-observation.json").read_text(encoding="utf-8")),
         profiler_sha256=hashlib.sha256(source).hexdigest(),
-        limitations="Full profiler instrumentation adds overhead. Nested/MT/Lua buckets overlap; do not sum them. Snapshots taken within callbacks omit still-open outer scopes until they close. GameOver-to-Shutdown includes the final open Sim scope plus teardown, not just teardown. Frame-zero-to-Shutdown matches the earlier diagnostic window. Name discovery is periodically refreshed; rare late first-use buckets may be absent. No engine latency or fleet-throughput claim is valid from this run.")
+        limitations="Full profiler instrumentation adds overhead. Nested/MT/Lua buckets overlap; do not sum them. Snapshots taken within callbacks omit still-open outer scopes until they close. GameOver-to-Shutdown includes the final open Sim scope, any explicitly recorded post-GameOver frames, and teardown. Frame-zero-to-Shutdown uses the earlier diagnostic boundary names, but must not be treated as an equal-length simulation window. Name discovery is periodically refreshed; rare late first-use buckets may be absent. No engine latency or fleet-throughput claim is valid from this run.")
     return result
 
 

@@ -70,6 +70,12 @@ public replay. All 17 complete runs retained the same captured data and frame
 checksums. Small individual effects were inconclusive, and production was not
 changed. This is narrow experimental evidence, not a fleet-wide speed claim.
 
+The completed [optimized profile](OPTIMIZED_PROFILE_2026-09-24.md) rechecks the
+remaining mask-151 startup and simulation costs. Independent raw streams,
+every-frame checksums and footer validation passed. Archive scan/cache rewriting
+took 0.232 seconds; path initialization remained a much larger region. The
+diagnostic is excluded from latency comparisons and selects no new source change.
+
 ## Replay compatibility and build identity
 
 Keep the base release, fork revision, exact patch set, toolchain, executable

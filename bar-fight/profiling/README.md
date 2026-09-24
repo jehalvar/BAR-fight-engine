@@ -5,6 +5,11 @@ runner. They do not reserve CPUs, change systemd state or publish captures.
 Schedule them only after the official-versus-candidate matrix releases its
 benchmark window. Do not run them alongside the timed matrix.
 
+The scheduled diagnostic has now completed. See
+`../OPTIMIZED_PROFILE_2026-09-24.md` and `optimized-profile-summary.json`.
+The run instructions below describe that existing experiment; they do not
+authorize another engine run.
+
 ## Local retained-evidence audit
 
 From the engine worktree, run:
@@ -70,6 +75,21 @@ benchmark, validation and comparison receipts, every frame checksum, the full
 profiler output, original logs, before/after cache metadata and controller
 restoration receipts. Rerun the original exact comparison independently before
 reporting the new attribution.
+
+The local retained layout contains `optimized151-profile`, `official75/LuaUI`,
+the exact frozen validator `source`, raw `source-replay.sdfz`,
+`frozen_run_one.py`, `harness`, and the root controller receipts in `controller`.
+Independently recheck it without executing an engine:
+
+```text
+python -X utf8 -B audit_profile.py E:\BAR-Replay-Worker\optimized-profile-20260924
+python -B -m unittest test_analyse_profile.py
+```
+
+The analyzer preserves GameOver and Shutdown separately: the completed raw
+observer continued for 11 post-GameOver engine frames. Production streams and
+checksums must still end exactly at GameOver. The tail also includes open
+callback scopes and teardown, and is not a pure teardown measurement.
 
 ## Further startup attribution only if needed
 

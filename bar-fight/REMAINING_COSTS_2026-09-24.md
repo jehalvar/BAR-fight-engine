@@ -1,5 +1,10 @@
 # Remaining optimized replay costs — 24 September 2026
 
+The preparation below is now followed by the completed
+[optimized diagnostic and independent raw proof](OPTIMIZED_PROFILE_2026-09-24.md).
+That run confirmed the small archive scan/write region, measured the remaining
+simulation buckets, and recorded the actual GameOver/Shutdown boundary difference.
+
 This follow-up audits existing measurements for **mask 151** before choosing
 another engine source change. It also prepares a bounded diagnostic using the
 same executable. No optimization, compiler change, production worker change,
@@ -101,7 +106,8 @@ diagnostic marker explicitly excludes the run from latency comparisons.
 Raw buckets are inclusive. Main/worker intervals overlap. Callback snapshots
 can occur while an outer Sim timer is open; GameOver-to-Shutdown therefore
 includes the final outstanding Sim scope as well as teardown. The primary
-frame-zero-to-Shutdown window matches the earlier diagnostic. Rare new names
+frame-zero-to-Shutdown window uses the earlier diagnostic's boundary names;
+actual post-GameOver frame counts must also be reported. Rare new names
 can be absent because profiler name discovery refreshes periodically.
 
 ## Reproducibility and current execution status
@@ -118,8 +124,9 @@ comparison. Its full output is `profiling/retained-startup-summary.json`.
 The general profiler analyzer reproduced all 83 region deltas in the prior
 diagnostic and rejected four malformed evidence variants: missing ending,
 wrong final frame, duplicate metadata and non-finite totals. Python syntax
-checks passed. The new observer itself still needs the bounded real replay run;
-the scheduling instructions are in `profiling/README.md`.
+checks passed. The later bounded real replay run and fresh production-validator
+audit are documented in `OPTIMIZED_PROFILE_2026-09-24.md`; the original scheduling
+instructions remain in `profiling/README.md`.
 
 Read-only host inspection confirmed that `perf` and `strace` are installed.
 `perf_event_paranoid=4` restricts unprivileged sampling; use a root diagnostic
