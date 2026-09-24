@@ -57,6 +57,19 @@ speed modifier/bin calculations and tree updates. The broad phase timer cannot
 say which component dominates. CPU sampling or narrow per-thread aggregate
 timers must separate those components before selecting a source optimization.
 
+The coordinating task's read-only cache inventory found only
+`ArchiveCache22.lua` and `CACHEDIR.TAG` in the prior optimized-151 and fresh
+official cache directories; it found no persisted path cache to seed. This is
+consistent with the inspected `PathManager::Load` implementation, which calls
+`InitNodeLayersThreaded` unconditionally. Its comment explicitly says the
+map/mod-hash caching assumption is invalid because Lua initialization already
+ran. Map/mod hash mixing into `pfsCheckSum` is temporarily disabled over false
+positives, while the initialized node-tree checksums are still folded into the
+result. The approximately ten-second phase is therefore an attribution target,
+not an available safe path-cache reuse optimization. Any future persistence
+would require complete initialization-context identity and determinism checks;
+no such source change is selected here.
+
 The tile-loading interval also warrants attribution. The active mask 151 does
 not include the texture-square-assembly experiment (bit 64). Tile file opening
 through `CFileHandler` can load/extract an entire archive member before the
