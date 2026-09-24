@@ -478,10 +478,16 @@ bool CGameServer::SendDemoData(int targetFrameNum)
 	// messages even when a recording contains long runs of non-frame packets.
 	const bool offline = ReplayPerformance::OfflinePlayback() && gameHasStarted && !isPaused
 		&& targetFrameNum == -1 && HasLocalClient() && myGameSetup->onlyLocal;
+	const auto* offlineLink = offline
+		? dynamic_cast<const netcode::CLocalConnection*>(players[localClientNumber].clientLink.get())
+		: nullptr;
+	if (offline && offlineLink == nullptr)
+		throw std::runtime_error("Offline replay requires a local connection");
 	unsigned packetCount = 0;
 	while (true) {
 		if (offline) {
-			if ((serverFrameNum - players[localClientNumber].lastFrameResponse) >= GAME_SPEED || packetCount >= 4096)
+			if ((serverFrameNum - players[localClientNumber].lastFrameResponse) >= GAME_SPEED
+				|| packetCount >= 4096 || offlineLink->GetOutgoingPacketQueueSize() >= 4096)
 				break;
 			modGameTime = std::max(modGameTime, demoReader->GetNextDemoReadTime());
 		}
@@ -567,6 +573,11 @@ bool CGameServer::SendDemoData(int targetFrameNum)
 		ret = (serverFrameNum < targetFrameNum);
 
 	if (demoReader->ReachedEnd()) {
+		// Keep replay identity alive while the client drains final packets and
+		// acknowledges the last frame, including recorded checksum responses.
+		if (offline && (offlineLink->GetOutgoingPacketQueueSize() != 0
+			|| players[localClientNumber].lastFrameResponse < serverFrameNum))
+			return ret;
 		demoReader.reset();
 		Message(DemoEnd);
 

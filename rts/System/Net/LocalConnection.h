@@ -1,7 +1,6 @@
 /* This file is part of the Spring engine (GPL v2 or later), see LICENSE.html */
 
-#ifndef _LOCAL_CONNECTION_H
-#define _LOCAL_CONNECTION_H
+#pragma once
 
 #include <deque>
 #include "System/Threading/SpringThreading.h"
@@ -46,6 +45,7 @@ public:
 	void SetLossFactor(int factor) override {}
 
 	unsigned int GetPacketQueueSize() const override;
+	unsigned int GetOutgoingPacketQueueSize() const;
 
 	std::string Statistics() const override;
 	std::string GetFullAddress() const override { return "Localhost"; }
@@ -69,6 +69,3 @@ private:
 };
 
 } // namespace netcode
-
-#endif // _LOCAL_CONNECTION_H
-

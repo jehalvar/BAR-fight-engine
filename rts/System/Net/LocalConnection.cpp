@@ -130,5 +130,10 @@ unsigned int CLocalConnection::GetPacketQueueSize() const
 	return (!pktQueues[instanceIdx].size());
 }
 
-} // namespace netcode
+unsigned int CLocalConnection::GetOutgoingPacketQueueSize() const
+{
+	std::lock_guard<spring::mutex> scoped_lock(mutexes[RemoteInstanceIdx()]);
+	return pktQueues[RemoteInstanceIdx()].size();
+}
 
+} // namespace netcode
