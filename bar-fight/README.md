@@ -22,9 +22,14 @@ licensing, attribution and replay correctness checks.
 - Base tag: `2026.07.04`.
 - Base commit: `de69361239d8c8b1012dba3f5aa3122954ea4da3`.
 - Working branch: `bar-fight/replay-2026.07.04`.
-- Current engine change: the previously tested, headless replay-only
+- Previously tested engine change: the headless replay-only
   `ReplayCpuUsageTarget` option, default 0.75 and bounded to 0.75–0.95.
   It applies only when `SpeedControl=2` and a demo is playing.
+- Eight additional experiments are controlled by the `ReplayPerformanceOptions`
+  bit mask (default **0**, all disabled). They activate only in a headless,
+  local replay. They cover uniform packing, transform upload bookkeeping,
+  feature rotation caching, animation queues/order, path scan partitioning,
+  map texture assembly, and offline replay packet scheduling.
 - Production still uses its separately installed official engine. This fork
   does not install itself or change replay-worker configuration.
 
@@ -53,7 +58,17 @@ Their proposed implementations and limits are in the audit.
 The [deeper source investigation](DEEP_REPLAY_AUDIT_2026-09-24.md) follows these
 regions into feature cache invalidation, animation bookkeeping, path invalidation,
 headless texture loading and an optional offline replay scheduler. Its candidate
-designs remain unapplied and have no measured speedup yet.
+designs are now implemented behind independent switches. The bounded experiment
+uses one short public replay, same-executable controls and exact capture/checksum
+comparisons. See [the experiment harness](https://github.com/jehalvar/BAR-fight/tree/main/tools/replay_analyser/deploy/experiments/engine-optimisations-20260924)
+for methodology and retained results. These options remain experimental and off
+by default; implementation alone does not establish a speedup.
+
+The completed [optimisation experiment](OPTIMISATIONS_2026-09-24.md) found a
+16.38% mean wall-time reduction for mask 151 in two repeated pairs on one short
+public replay. All 17 complete runs retained the same captured data and frame
+checksums. Small individual effects were inconclusive, and production was not
+changed. This is narrow experimental evidence, not a fleet-wide speed claim.
 
 ## Replay compatibility and build identity
 
