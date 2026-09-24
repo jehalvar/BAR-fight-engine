@@ -30,6 +30,7 @@
 #include "System/Config/ConfigHandler.h"
 #include "System/EventHandler.h"
 #include "System/GlobalConfig.h"
+#include "System/ReplayPerformance.h"
 #include "System/Log/ILog.h"
 #include "System/SpringMath.h"
 #include "System/TimeProfiler.h"
@@ -244,6 +245,11 @@ void CGame::UpdateNetMessageProcessingTimeLeft()
 
 float CGame::GetNetMessageProcessingTimeLimit() const
 {
+	// Retain regular unsynced/collector updates and cancellation opportunities.
+	// Only the explicitly enabled headless local replay mode ignores draw pacing.
+	if (ReplayPerformance::OfflinePlayback())
+		return 100.0f;
+
 	// balance the time spent in simulation & drawing (esp. when reconnecting)
 	// use the following algo: i.e. with gu->reconnectSimDrawBalance = 0.2f
 	//  -> try to spend minimum 20% of the time in drawing

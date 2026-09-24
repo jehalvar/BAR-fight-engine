@@ -38,6 +38,7 @@
 #endif
 #include "System/CRC.h"
 #include "System/GlobalConfig.h"
+#include "System/ReplayPerformance.h"
 #include "System/MsgStrings.h"
 #include "System/SpringMath.h"
 #include "System/SpringExitCode.h"
@@ -467,8 +468,26 @@ bool CGameServer::SendDemoData(int targetFrameNum)
 	if (demoReader == nullptr)
 		return ret;
 
-	// get all packets from the stream up to <modGameTime>
-	while ((buf = demoReader->GetData(modGameTime))) {
+	// The bounded offline feed may leave equal-timestamp packets pending. Do
+	// not drain them through the ordinary time-based route while paused.
+	if (ReplayPerformance::OfflinePlayback() && gameHasStarted && isPaused && targetFrameNum == -1)
+		return ret;
+
+	// Offline analysis preserves every packet and normal sync bookkeeping while
+	// feeding at most one second of frames ahead. Yield regularly for control
+	// messages even when a recording contains long runs of non-frame packets.
+	const bool offline = ReplayPerformance::OfflinePlayback() && gameHasStarted && !isPaused
+		&& targetFrameNum == -1 && HasLocalClient() && myGameSetup->onlyLocal;
+	unsigned packetCount = 0;
+	while (true) {
+		if (offline) {
+			if ((serverFrameNum - players[localClientNumber].lastFrameResponse) >= GAME_SPEED || packetCount >= 4096)
+				break;
+			modGameTime = std::max(modGameTime, demoReader->GetNextDemoReadTime());
+		}
+		if ((buf = demoReader->GetData(modGameTime)) == nullptr)
+			break;
+		++packetCount;
 		std::shared_ptr<const RawPacket> rpkt(buf);
 
 		if (buf->length <= 0) {
@@ -3175,4 +3194,3 @@ uint8_t CGameServer::ReserveSkirmishAIId()
 	freeSkirmishAIs.pop_back();
 	return id;
 }
-

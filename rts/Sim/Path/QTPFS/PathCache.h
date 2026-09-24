@@ -1,7 +1,6 @@
 /* This file is part of the Spring engine (GPL v2 or later), see LICENSE.html */
 
-#ifndef QTPFS_PATHCACHE_HDR
-#define QTPFS_PATHCACHE_HDR
+#pragma once
 
 #include <vector>
 
@@ -32,10 +31,15 @@ namespace QTPFS {
 		};
 
 		bool MarkDeadPaths(const SRectangle& r, const NodeLayer& nodeLayer);
+		void BuildPathTypeSnapshot();
+		void ClearPathTypeSnapshot();
 
 		void Init(int pathTypes) {
 			dirtyPaths.clear();
 			dirtyPaths.resize(pathTypes);
+			pathsByType.clear();
+			pathsByType.resize(pathTypes);
+			pathSnapshotActive = false;
 		}
 
 		void SetLayerPathCount(int pathType, int paths) {
@@ -43,8 +47,11 @@ namespace QTPFS {
 		}
 
 		std::vector< std::vector<DirtyPathDetail> > dirtyPaths;
+
+	private:
+		// Rebuilt for each map-update worker phase. Only capacity survives frames;
+		// no registry lifecycle hooks or persistent entity index are required.
+		std::vector<std::vector<QTPFS::entity>> pathsByType;
+		bool pathSnapshotActive = false;
 	};
 }
-
-#endif
-

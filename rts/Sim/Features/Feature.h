@@ -1,7 +1,6 @@
 /* This file is part of the Spring engine (GPL v2 or later), see LICENSE.html */
 
-#ifndef _FEATURE_H
-#define _FEATURE_H
+#pragma once
 
 #include "System/Misc/NonCopyable.h"
 
@@ -82,8 +81,14 @@ public:
 	bool UpdatePosition();
 	bool UpdateVelocity(const float3& dragAccel, const float3& gravAccel, const float3& movMask, const float3& velMask);
 
-	void SetTransform(const CMatrix44f& m, bool synced) { transMatrix[synced] = m; }
+	void SetTransform(const CMatrix44f& m, bool synced) {
+		if (synced)
+			prevFrameRotationValid = false;
+
+		transMatrix[synced] = m;
+	}
 	void UpdateTransform(const float3& p, bool synced);
+	void UpdatePrevFrameTransformCached();
 	void UpdateTransformAndPhysState();
 	void UpdateQuadFieldPosition(const float3& moveVec);
 
@@ -145,6 +150,6 @@ public:
 private:
 	// [0] := unsynced, [1] := synced
 	CMatrix44f transMatrix[2];
+	// Cache stored in preFrameTra.r; only synced matrix writes invalidate it.
+	bool prevFrameRotationValid = false;
 };
-
-#endif // _FEATURE_H

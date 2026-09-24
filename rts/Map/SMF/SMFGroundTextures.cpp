@@ -26,6 +26,7 @@
 #include "System/Exceptions.h"
 #include "System/FastMath.h"
 #include "System/Log/ILog.h"
+#include "System/ReplayPerformance.h"
 #include "System/TimeProfiler.h"
 #include "System/FileSystem/FileHandler.h"
 #include "System/FileSystem/FileSystem.h"
@@ -481,19 +482,24 @@ bool CSMFGroundTextures::GetSquareLuaTexture(int texSquareX, int texSquareY, int
 
 	glBindTexture(ttarget, texID);
 
-	for (int lod = lodMin; lod <= lodMax; ++lod) {
-		const int mipSqSize = smfMap->bigTexSize >> lod;
-		const int numSqBytes = (mipSqSize * mipSqSize) / 2;
+#ifdef HEADLESS
+	if (!ReplayPerformance::SkipTextureAssembly())
+#endif
+	{
+		for (int lod = lodMin; lod <= lodMax; ++lod) {
+			const int mipSqSize = smfMap->bigTexSize >> lod;
+			const int numSqBytes = (mipSqSize * mipSqSize) / 2;
 
-		pbo.Bind();
-		pbo.New(numSqBytes);
-		ExtractSquareTiles(texSquareX, texSquareY, lod, reinterpret_cast<GLint*>(pbo.MapBuffer(0, pbo.GetSize(), access | pbo.mapUnsyncedBit)));
-		pbo.UnmapBuffer();
+			pbo.Bind();
+			pbo.New(numSqBytes);
+			ExtractSquareTiles(texSquareX, texSquareY, lod, reinterpret_cast<GLint*>(pbo.MapBuffer(0, pbo.GetSize(), access | pbo.mapUnsyncedBit)));
+			pbo.UnmapBuffer();
 
-		glCompressedTexImage2D(ttarget, 0, tileTexFormat, texSizeX, texSizeY, 0, numSqBytes, pbo.GetPtr());
+			glCompressedTexImage2D(ttarget, 0, tileTexFormat, texSizeX, texSizeY, 0, numSqBytes, pbo.GetPtr());
 
-		pbo.Invalidate();
-		pbo.Unbind();
+			pbo.Invalidate();
+			pbo.Unbind();
+		}
 	}
 
 	glBindTexture(ttarget, 0);
@@ -556,10 +562,17 @@ void CSMFGroundTextures::LoadSquareTexture(int x, int y, int level)
 	square->SetMipLevel(level);
 	assert(!square->HasLuaTexture());
 
-	pbo.Bind();
-	pbo.New(numSqBytes);
-	ExtractSquareTiles(x, y, level, reinterpret_cast<GLint*>(pbo.MapBuffer(0, pbo.GetSize(), access | pbo.mapUnsyncedBit)));
-	pbo.UnmapBuffer();
+#ifdef HEADLESS
+	const bool assembleTexture = !ReplayPerformance::SkipTextureAssembly();
+#else
+	constexpr bool assembleTexture = true;
+#endif
+	if (assembleTexture) {
+		pbo.Bind();
+		pbo.New(numSqBytes);
+		ExtractSquareTiles(x, y, level, reinterpret_cast<GLint*>(pbo.MapBuffer(0, pbo.GetSize(), access | pbo.mapUnsyncedBit)));
+		pbo.UnmapBuffer();
+	}
 
 	glDeleteTextures(1, square->GetTextureIDPtr());
 	glGenTextures(1, square->GetTextureIDPtr());
@@ -579,10 +592,12 @@ void CSMFGroundTextures::LoadSquareTexture(int x, int y, int level)
 		glTexParameterf(ttarget, GL_TEXTURE_PRIORITY, 0.5f);
 	}
 
-	glCompressedTexImage2D(ttarget, 0, tileTexFormat, mipSqSize, mipSqSize, 0, numSqBytes, pbo.GetPtr());
+	if (assembleTexture) {
+		glCompressedTexImage2D(ttarget, 0, tileTexFormat, mipSqSize, mipSqSize, 0, numSqBytes, pbo.GetPtr());
 
-	pbo.Invalidate();
-	pbo.Unbind();
+		pbo.Invalidate();
+		pbo.Unbind();
+	}
 
 	glBindTexture(ttarget, 0);
 }
@@ -616,12 +631,17 @@ void CSMFGroundTextures::LoadSquareTexturePersistent(int x, int y)
 	if (smfMap->GetTexAnisotropyLevel(false) != 0.0f)
 		glTexParameterf(ttarget, GL_TEXTURE_MAX_ANISOTROPY_EXT, smfMap->GetTexAnisotropyLevel(false));
 
-	std::vector<GLint> tilesBuffer(smfMap->bigTexSize * smfMap->bigTexSize / 2 / sizeof(GLint));
-	for (int level = 0; level <= 3; ++level) {
-		const int mipSqSize = smfMap->bigTexSize >> level;
-		const int numSqBytes = (mipSqSize * mipSqSize) / 2;
-		ExtractSquareTiles(x, y, level, tilesBuffer.data());
-		glCompressedTexImage2D(ttarget, level, tileTexFormat, mipSqSize, mipSqSize, 0, numSqBytes, tilesBuffer.data());
+#ifdef HEADLESS
+	if (!ReplayPerformance::SkipTextureAssembly())
+#endif
+	{
+		std::vector<GLint> tilesBuffer(smfMap->bigTexSize * smfMap->bigTexSize / 2 / sizeof(GLint));
+		for (int level = 0; level <= 3; ++level) {
+			const int mipSqSize = smfMap->bigTexSize >> level;
+			const int numSqBytes = (mipSqSize * mipSqSize) / 2;
+			ExtractSquareTiles(x, y, level, tilesBuffer.data());
+			glCompressedTexImage2D(ttarget, level, tileTexFormat, mipSqSize, mipSqSize, 0, numSqBytes, tilesBuffer.data());
+		}
 	}
 
 	glBindTexture(ttarget, 0);

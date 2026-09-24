@@ -132,6 +132,7 @@
 #include "System/Sync/DumpState.h"
 #include "System/TimeProfiler.h"
 #include "System/LoadLock.h"
+#include "System/ReplayPerformance.h"
 
 #include "System/Misc/TracyDefs.h"
 
@@ -141,6 +142,10 @@
 #undef CreateDirectory
 
 CONFIG(bool, GameEndOnConnectionLoss).defaultValue(true);
+#ifdef HEADLESS
+CONFIG(int, ReplayPerformanceOptions).defaultValue(0).minimumValue(0).maximumValue(255)
+	.description("Experimental BAR Fight optimization bitmask for headless local replay analysis; zero retains control behavior.");
+#endif
 // CONFIG(bool, LuaCollectGarbageOnSimFrame).defaultValue(true);
 
 CONFIG(bool, ShowFPS).defaultValue(false).description("Displays current framerate.");
@@ -238,6 +243,13 @@ CGame::CGame(const std::string& mapFileName, const std::string& modFileName, ILo
 	, saveFileHandler(saveFile)
 {
 	game = this;
+	unsigned replayPerformanceOptions = 0;
+#ifdef HEADLESS
+	if (gameServer != nullptr && gameServer->GetDemoReader() != nullptr && gameServer->GetGameSetup()->onlyLocal)
+		replayPerformanceOptions = configHandler->GetInt("ReplayPerformanceOptions");
+#endif
+	ReplayPerformance::options.store(replayPerformanceOptions, std::memory_order_relaxed);
+	LOG("[ReplayPerformanceExperiment] options=%u", replayPerformanceOptions);
 
 	memset(gameID, 0, sizeof(gameID));
 
@@ -1813,7 +1825,7 @@ void CGame::SimFrame() {
 		// multiply by 0.5 to give unsynced code some execution time (50% of our sleep-budget)
 		const float msecSleepTime = (msecMaxSimFrameTime - msecDifSimFrameTime) * 0.5f;
 
-		if (msecSleepTime > 0.0f) {
+		if (msecSleepTime > 0.0f && !ReplayPerformance::OfflinePlayback()) {
 			spring_sleep(spring_msecs(msecSleepTime));
 		}
 	}
@@ -2208,4 +2220,3 @@ const ActionList& CGame::GetLastActionList()
 {
 	return gameInputReceiver.lastActionList;
 }
-

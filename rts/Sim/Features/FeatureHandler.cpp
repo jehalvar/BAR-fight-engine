@@ -12,6 +12,7 @@
 #include "Sim/Units/CommandAI/BuilderCaches.h"
 #include "System/creg/STL_Set.h"
 #include "System/EventHandler.h"
+#include "System/ReplayPerformance.h"
 #include "System/TimeProfiler.h"
 
 #include "System/Misc/TracyDefs.h"
@@ -189,6 +190,13 @@ CFeature* CFeatureHandler::CreateWreckage(const FeatureLoadParams& cparams)
 void CFeatureHandler::UpdatePreFrame()
 {
 	SCOPED_TIMER("Sim::Features::UpdatePreFrame");
+
+	if (ReplayPerformance::CacheFeatureRotation()) {
+		for (auto fid : activeFeatureIDs) {
+			features[fid]->UpdatePrevFrameTransformCached();
+		}
+		return;
+	}
 
 	for (auto fid : activeFeatureIDs) {
 		features[fid]->UpdatePrevFrameTransform();

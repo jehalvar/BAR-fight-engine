@@ -1,3 +1,5 @@
+/* This file is part of the Spring engine (GPL v2 or later), see LICENSE.html */
+
 #pragma once
 
 #include <memory>
@@ -39,11 +41,9 @@ public:
 		if (eqCmp(curValue, newValue))
 			return false;
 
-		updateList.SetUpdate(idx);
+		MarkUploadUpdated(idx);
 		auto& mutValue = const_cast<DT&>(storage)[idx];
 		mutValue = newValue;
-
-		assert(updateList.Size() == storage.GetSize());
 
 		return true;
 	}
@@ -52,11 +52,9 @@ public:
 	void UpdateForced(std::size_t idx, MyTypeLike&& newValue) {
 		auto lock = CModelsLock::GetScopedLock();
 
-		updateList.SetUpdate(idx);
+		MarkUploadUpdated(idx);
 		auto& mutValue = storage[idx];
 		mutValue = newValue;
-
-		assert(updateList.Size() == storage.GetSize());
 	}
 
 	const MyType& operator[](std::size_t idx) const;
@@ -64,7 +62,12 @@ public:
 	const auto& GetUpdateList() const { return updateList; }
 	      auto& GetUpdateList()       { return updateList; }
 private:
+	// Kept out of the templates: shared simulation sources do not define HEADLESS.
+	void MarkUploadUpdated(std::size_t idx);
+
 	StablePosAllocator<MyType> storage;
+	// May retain its old size while headless replay upload bookkeeping is disabled.
+	// All indexed writers and the uploader are gated together for that game.
 	UpdateList updateList;
 private:
 	static constexpr int INIT_NUM_ELEMS = 1 << 16u;

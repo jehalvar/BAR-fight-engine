@@ -2,8 +2,7 @@
 
 /* heavily based on CobInstance.h */
 
-#ifndef UNIT_SCRIPT_H
-#define UNIT_SCRIPT_H
+#pragma once
 
 #include <string>
 #include <vector>
@@ -53,6 +52,11 @@ protected:
 
 	AnimContainerType anims;
 	AnimContainerType doneAnims;
+
+	// Derived bookkeeping only: never part of AnimInfo or its checksum.
+	bool animationOrderDirty = true;
+	bool animationKeysUnique = false;
+	void InvalidateAnimationOrder() { animationOrderDirty = true; animationKeysUnique = false; }
 
 	bool busy;
 	bool hasSetSFXOccupy;
@@ -222,5 +226,3 @@ public:
 	const auto& GetLiveAnims() const { return anims; }
 	const auto& GetDoneAnims() const { return doneAnims; }
 };
-
-#endif // UNIT_SCRIPT_H

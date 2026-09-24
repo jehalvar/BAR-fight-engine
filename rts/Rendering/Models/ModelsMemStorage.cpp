@@ -1,6 +1,9 @@
+/* This file is part of the Spring engine (GPL v2 or later), see LICENSE.html */
+
 #include "ModelsMemStorage.h"
 #include "Sim/Objects/WorldObject.h"
 
+#include "System/ReplayPerformance.h"
 #include "System/Misc/TracyDefs.h"
 
 TransformsMemStorage transformsMemStorage;
@@ -121,6 +124,11 @@ size_t TransformsMemStorage::Allocate(size_t numElems)
 	auto lock = CModelsLock::GetScopedLock();
 
 	auto res = storage.Allocate(numElems);
+#ifdef HEADLESS
+	if (ReplayPerformance::SkipTransformUploadDirty())
+		return res;
+#endif
+
 	updateList.Resize(storage.GetSize());
 
 	return res;
@@ -131,8 +139,25 @@ void TransformsMemStorage::Free(size_t firstElem, size_t numElems, const MyType*
 	auto lock = CModelsLock::GetScopedLock();
 
 	storage.Free(firstElem, numElems, T0);
+#ifdef HEADLESS
+	if (ReplayPerformance::SkipTransformUploadDirty())
+		return;
+#endif
+
 	updateList.SetUpdate(firstElem, numElems);
 	updateList.Trim(storage.GetSize());
+}
+
+void TransformsMemStorage::MarkUploadUpdated(std::size_t idx)
+{
+	assert(idx < storage.GetSize());
+#ifdef HEADLESS
+	if (ReplayPerformance::SkipTransformUploadDirty())
+		return;
+#endif
+
+	updateList.SetUpdate(idx);
+	assert(updateList.Size() == storage.GetSize());
 }
 
 const TransformsMemStorage::MyType& TransformsMemStorage::operator[](std::size_t idx) const

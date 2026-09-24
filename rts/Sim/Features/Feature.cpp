@@ -59,6 +59,7 @@ CR_REG_METADATA(CFeature, (
 
 	CR_MEMBER(solidOnTop),
 	CR_MEMBER(transMatrix),
+	CR_IGNORED(prevFrameRotationValid),
 
 	CR_POSTLOAD(PostLoad)
 ))
@@ -104,6 +105,7 @@ CFeature::~CFeature()
 void CFeature::PostLoad()
 {
 	RECOIL_DETAILED_TRACY_ZONE;
+	prevFrameRotationValid = false;
 	eventHandler.RenderFeaturePreCreated(this);
 	eventHandler.RenderFeatureCreated(this);
 }
@@ -521,8 +523,27 @@ void CFeature::UpdateTransform(const float3& p, bool synced)
 {
 	transMatrix[synced] = std::move(ComposeMatrix(p));
 
-	if (synced)
+	if (synced) {
+		// CondUpdatePrevTransform keeps the base creation-frame behavior.
+		prevFrameRotationValid = false;
 		CondUpdatePrevTransform();
+	}
+}
+
+void CFeature::UpdatePrevFrameTransformCached()
+{
+	// Pieces can change independently of the feature's object transform.
+	for (auto& lmp : localModel.pieces) {
+		lmp.SavePrevModelSpaceTransform();
+	}
+
+	if (!prevFrameRotationValid) {
+		preFrameTra.r = CQuaternion::MakeFrom(transMatrix[true]);
+		prevFrameRotationValid = true;
+	}
+
+	preFrameTra.t = pos;
+	preFrameTra.s = 1.0f;
 }
 
 void CFeature::UpdateTransformAndPhysState()

@@ -1,3 +1,5 @@
+/* This file is part of the Spring engine (GPL v2 or later), see LICENSE.html */
+
 #include "ModelsDataUploader.h"
 
 #include <limits>
@@ -5,6 +7,7 @@
 
 #include "System/float4.h"
 #include "System/Matrix44f.h"
+#include "System/ReplayPerformance.h"
 #include "System/Log/ILog.h"
 #include "System/SpringMath.h"
 #include "System/TimeProfiler.h"
@@ -197,6 +200,12 @@ void TransformsUploader::Kill()
 
 void TransformsUploader::Update()
 {
+#ifdef HEADLESS
+	// The matching storage path leaves the unused dirty list untouched.
+	if (ReplayPerformance::SkipTransformUploadDirty())
+		return;
+#endif
+
 	if (!globalRendering->haveGL4)
 		return;
 
@@ -347,6 +356,13 @@ void ModelUniformsUploader::Kill()
 
 void ModelUniformsUploader::Update()
 {
+#ifdef HEADLESS
+	// The headless uploader has no SSBO; avoid clearing its unused dirty list.
+	// Storage and Lua custom-uniform writes retain their normal lifetime.
+	if (ReplayPerformance::SkipModelUniforms())
+		return;
+#endif
+
 	SCOPED_TIMER("ModelUniformsUploader::Update");
 
 	Impl::UpdateCommon<MyDataType>(*this, ssbo, modelUniformsStorage, className, __func__);

@@ -34,6 +34,7 @@
 #include "System/Log/ILog.h"
 #include "System/Platform/Threading.h"
 #include "System/Rectangle.h"
+#include "System/ReplayPerformance.h"
 #include "System/TimeProfiler.h"
 #include "System/StringUtil.h"
 
@@ -828,6 +829,15 @@ void QTPFS::PathManager::Update() {
 			return blocksToUpdate;
 		};
 
+		const bool partitionPathScans = ReplayPerformance::PartitionPathScans();
+		if (partitionPathScans) {
+			// NotifyUpdate above joins and applies prior background searches. No
+			// IPath insertion/removal or path-type mutation occurs in this worker
+			// phase; dirty records are applied only after the for_mt barrier.
+			assert(!systemGlobals.GetSystemComponent<SyncUpdatedPathsComponent>().backgroundTask);
+			pathCache.BuildPathTypeSnapshot();
+		}
+
 		SRectangle rect(0,0,0,0);
 		for_mt(0, nodeLayers.size(), [this, &rect, &numBlocksToUpdate](const int index) {
 			int curThread = ThreadPool::GetThreadNum();
@@ -835,6 +845,9 @@ void QTPFS::PathManager::Update() {
 			int blocksToUpdate = numBlocksToUpdate(layerNum);
 			for (int i = 0; i < blocksToUpdate; ++i) { UpdateNodeLayer(layerNum, rect, curThread); }
 		});
+
+		if (partitionPathScans)
+			pathCache.ClearPathTypeSnapshot();
 
 		// Mark all dirty paths so that they can be recalculated
 		int pathsMarkedDirty = 0;

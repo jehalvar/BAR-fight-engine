@@ -3,10 +3,16 @@
 /* heavily based on CobInstance.cpp */
 #include "UnitScript.h"
 
+#include <algorithm>
+#include <deque>
+#include <tuple>
+#include <utility>
+
 #include "CobDefines.h"
 #include "CobFile.h"
 #include "CobInstance.h"
 #include "System/SafeUtil.h"
+#include "System/ReplayPerformance.h"
 #include "UnitScriptEngine.h"
 
 #ifndef _CONSOLE
@@ -61,6 +67,9 @@ CR_REG_METADATA(CUnitScript, (
 	CR_MEMBER(busy),
 	CR_MEMBER(anims),
 	CR_MEMBER(doneAnims),
+	CR_IGNORED(animationOrderDirty),
+	CR_IGNORED(animationKeysUnique),
+	CR_POSTLOAD(InvalidateAnimationOrder),
 
 	//Populated by children
 	CR_IGNORED(rootPiece),
@@ -192,6 +201,43 @@ bool CUnitScript::DoSpin(float& cur, float dest, float& speed, float accel, int 
 	return false;
 }
 
+static bool UpdatePieceTransformsWithReusableQueue(LocalModelPiece* rootPiece)
+{
+	struct AnimationQueue {
+		std::vector<std::pair<LocalModelPiece*, Transform>> entries;
+		bool active = false;
+	};
+	static thread_local AnimationQueue queue;
+
+	// Transform updates do not call scripts, but preserve the local deque fallback
+	// if a future caller makes this traversal reentrant on the same worker.
+	if (queue.active)
+		return false;
+
+	queue.active = true;
+	struct QueueReset {
+		AnimationQueue& queue;
+		~QueueReset() { queue.entries.clear(); queue.active = false; }
+	} reset{queue};
+
+	queue.entries.push_back({ rootPiece, Transform{} });
+	for (size_t next = 0; next < queue.entries.size(); ++next) {
+		// Copy before appending children: growth can invalidate vector references.
+		auto [lmp, pTra] = queue.entries[next];
+		if (lmp->GetDirty()) {
+			lmp->SetDirtyRaw(false);
+			lmp->SetWasUpdatedRaw(true);
+			lmp->UpdatePieceSpaceTransform();
+			lmp->UpdateModelSpaceTransform(pTra);
+		}
+
+		const Transform& modelTra = lmp->GetModelSpaceTransformRaw();
+		for (auto* child : lmp->children)
+			queue.entries.push_back({ child, modelTra });
+	}
+	return true;
+}
+
 /**
  * @brief The multithreaded first half of the original CUnitScript::Tick function first does the heavy lifting of calculating all
 			  new piece positions according to the animations
@@ -201,9 +247,23 @@ void CUnitScript::TickAllAnims(int deltaTime)
 	ZoneScoped;
 
 	// optimize the memory access patterns of the procedure below
-	std::sort(anims.begin(), anims.end(), [](const auto& lhs, const auto& rhs) {
-		return std::tie(lhs.piece, lhs.animType, lhs.axis) < std::tie(rhs.piece, rhs.animType, rhs.axis);
-	});
+	const bool cacheAnimationOrder = ReplayPerformance::CacheAnimationOrder();
+	if (!cacheAnimationOrder || animationOrderDirty || !animationKeysUnique) {
+		std::sort(anims.begin(), anims.end(), [](const auto& lhs, const auto& rhs) {
+			return std::tie(lhs.piece, lhs.animType, lhs.axis) < std::tie(rhs.piece, rhs.animType, rhs.axis);
+		});
+
+		if (cacheAnimationOrder) {
+			// std::sort is unstable for equal keys. Restore data or reentrant script
+			// mutations may contain duplicates; keep sorting every tick in that case.
+			animationKeysUnique = (std::adjacent_find(anims.begin(), anims.end(), [](const auto& lhs, const auto& rhs) {
+				return std::tie(lhs.piece, lhs.animType, lhs.axis) == std::tie(rhs.piece, rhs.animType, rhs.axis);
+			}) == anims.end());
+			animationOrderDirty = false;
+		} else {
+			InvalidateAnimationOrder();
+		}
+	}
 
 	// tick-functions; these never change address
 	static constexpr std::array<TickAnimFunc, ACount> TICK_ANIM_FUNCS = { &CUnitScript::TickTurnAnim, &CUnitScript::TickSpinAnim, &CUnitScript::TickMoveAnim, &CUnitScript::TickScaleAnim };
@@ -225,28 +285,31 @@ void CUnitScript::TickAllAnims(int deltaTime)
 		checksum = spring::LiteHash(ai, checksum);
 	}
 
-	spring::VectorEraseIfAll(anims, [](const auto& ai) { return ai.done; });
+	if (spring::VectorEraseIfAll(anims, [](const auto& ai) { return ai.done; }))
+		animationOrderDirty = true;
 #if 1
 	// BFS pass
-	std::deque<std::pair<LocalModelPiece*, Transform>> q;
-	q.push_front({ rootPiece, Transform{} });
+	if (!ReplayPerformance::ReuseAnimationQueue() || !UpdatePieceTransformsWithReusableQueue(rootPiece)) {
+		std::deque<std::pair<LocalModelPiece*, Transform>> q;
+		q.push_front({ rootPiece, Transform{} });
 
-	while (!q.empty()) {
-		// copy
-		auto [lmp, pTra] = q.front();
-		q.pop_front();
+		while (!q.empty()) {
+			// copy
+			auto [lmp, pTra] = q.front();
+			q.pop_front();
 
-		if (lmp->GetDirty()) {
-			lmp->SetDirtyRaw(false);
-			lmp->SetWasUpdatedRaw(true);
-			lmp->UpdatePieceSpaceTransform();
-			lmp->UpdateModelSpaceTransform(pTra);
-		}
+			if (lmp->GetDirty()) {
+				lmp->SetDirtyRaw(false);
+				lmp->SetWasUpdatedRaw(true);
+				lmp->UpdatePieceSpaceTransform();
+				lmp->UpdateModelSpaceTransform(pTra);
+			}
 
-		const Transform& modelTra = lmp->GetModelSpaceTransformRaw();
+			const Transform& modelTra = lmp->GetModelSpaceTransformRaw();
 
-		for (auto* child : lmp->children) {
-			q.push_back({ child, modelTra });
+			for (auto* child : lmp->children) {
+				q.push_back({ child, modelTra });
+			}
 		}
 	}
 #else
@@ -363,6 +426,7 @@ void CUnitScript::RemoveAnim(AnimType type, const AnimContainerTypeIt& animInfoI
 
 	ai = anims.back();
 	anims.pop_back();
+	animationOrderDirty = true;
 
 	// If this was the last animation, remove from currently animating list
 	// FIXME: this could be done in a cleaner way
@@ -442,6 +506,7 @@ void CUnitScript::AddAnim(AnimType type, int piece, int axis, float speed, float
 		ai->animType = type;
 		ai->axis = axis;
 		ai->piece = piece;
+		animationOrderDirty = true;
 	} else {
 		ai = &(*animInfoIt);
 	}
@@ -1812,4 +1877,3 @@ void CUnitScript::ShowUnitScriptError(const std::string& error)
 		ShowScriptError("unitID=" + IntToString(unit->id) + " defName=" + unit->unitDef->name + " error=\"" + error + "\"");
 	}
 }
-

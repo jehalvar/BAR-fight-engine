@@ -1,3 +1,5 @@
+/* This file is part of the Spring engine (GPL v2 or later), see LICENSE.html */
+
 #pragma once
 
 #include <vector>
@@ -9,6 +11,7 @@
 #include "System/EventClient.h"
 #include "System/EventHandler.h"
 #include "System/ContainerUtil.h"
+#include "System/ReplayPerformance.h"
 #include "System/Config/ConfigHandler.h"
 #include "System/Threading/ThreadPool.h"
 #include "Rendering/GlobalRendering.h"
@@ -203,6 +206,11 @@ inline void CModelDrawerDataBase<T>::UpdateObjectTrasform(const T* o)
 template<typename T>
 inline void CModelDrawerDataBase<T>::UpdateObjectUniforms(const T* o)
 {
+#ifdef HEADLESS
+	if (ReplayPerformance::SkipModelUniforms())
+		return;
+#endif
+
 	auto& uni = modelUniformsStorage.GetObjUniformsArray(o);
 	uni.drawFlag = o->drawFlag;
 
