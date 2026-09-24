@@ -1,0 +1,487 @@
+{
+  "schema": 1,
+  "kind": "retained_optimized_startup_attribution",
+  "archive_sha256": "a73bebb0252ff5869cb6f0297e02915b0a8c15abb31a3e6db46b20e286c94265",
+  "official_checksum_file_sha256": "1b8bf01408cff0bbdc6139e3daf99d1d0e39ba9b8f075f2a8f64229991ffd816",
+  "runs": [
+    {
+      "label": "13-repeat-options-151",
+      "values": {
+        "loading_seconds": 36.719386,
+        "scan_including_write_seconds": 0.236,
+        "load_map_seconds": 1.737,
+        "tile_stage_interval_seconds": 4.4843340000000005,
+        "square_stage_interval_seconds": 0.39737700000000054,
+        "pfs_finalize_reported_seconds": 10.292,
+        "lua_rules_stage_interval_seconds": 4.834820000000001,
+        "lua_ui_to_frame_zero_seconds": 9.599025000000001
+      },
+      "pfs_checksum": "76174e00",
+      "load_message_intervals": [
+        {
+          "start": "Parsing Map Information",
+          "end": "Loading SMF",
+          "seconds": 0.2945659999999999
+        },
+        {
+          "start": "Loading SMF",
+          "end": "Loading Map (242 MB)",
+          "seconds": 0.30098899999999995
+        },
+        {
+          "start": "Loading Map (242 MB)",
+          "end": "Loading GameData Definitions",
+          "seconds": 1.142207
+        },
+        {
+          "start": "Loading GameData Definitions",
+          "end": "Loading Radar Icons",
+          "seconds": 0.5493570000000001
+        },
+        {
+          "start": "Loading Radar Icons",
+          "end": "Loading Sound Definitions",
+          "seconds": 0.37468800000000035
+        },
+        {
+          "start": "Loading Sound Definitions",
+          "end": "Creating Smooth Height Mesh",
+          "seconds": 0.00042699999999928906
+        },
+        {
+          "start": "Creating Smooth Height Mesh",
+          "end": "Creating QuadField & CEGs",
+          "seconds": 0.05213300000000043
+        },
+        {
+          "start": "Creating QuadField & CEGs",
+          "end": "Creating Unit Textures",
+          "seconds": 0.326346
+        },
+        {
+          "start": "Creating Unit Textures",
+          "end": "Creating Sky",
+          "seconds": 0.0008730000000003457
+        },
+        {
+          "start": "Creating Sky",
+          "end": "Loading Weapon Definitions",
+          "seconds": 0.005312999999999235
+        },
+        {
+          "start": "Loading Weapon Definitions",
+          "end": "Loading Unit Definitions",
+          "seconds": 0.09486400000000028
+        },
+        {
+          "start": "Loading Unit Definitions",
+          "end": "Loading Feature Definitions",
+          "seconds": 0.08035700000000023
+        },
+        {
+          "start": "Loading Feature Definitions",
+          "end": "Initializing Map Features",
+          "seconds": 0.06360899999999958
+        },
+        {
+          "start": "Initializing Map Features",
+          "end": "Loading Models",
+          "seconds": 0.002985999999999933
+        },
+        {
+          "start": "Loading Models",
+          "end": "Creating ShadowHandler",
+          "seconds": 0.0018090000000006157
+        },
+        {
+          "start": "Creating ShadowHandler",
+          "end": "Creating InfoTextureHandler",
+          "seconds": 0.0001660000000001105
+        },
+        {
+          "start": "Creating InfoTextureHandler",
+          "end": "Creating GroundDrawer",
+          "seconds": 5.499999999969418e-05
+        },
+        {
+          "start": "Creating GroundDrawer",
+          "end": "Loading Map Tiles",
+          "seconds": 6.699999999959516e-05
+        },
+        {
+          "start": "Loading Map Tiles",
+          "end": "Loading Square Textures",
+          "seconds": 4.4843340000000005
+        },
+        {
+          "start": "Loading Square Textures",
+          "end": "Creating GrassDrawer",
+          "seconds": 0.39737700000000054
+        },
+        {
+          "start": "Creating GrassDrawer",
+          "end": "Creating ProjectileDrawer & UnitDrawer",
+          "seconds": 0.00029399999999846216
+        },
+        {
+          "start": "Creating ProjectileDrawer & UnitDrawer",
+          "end": "Creating Projectile Textures",
+          "seconds": 9.900000000051534e-05
+        },
+        {
+          "start": "Creating Projectile Textures",
+          "end": "Creating Water",
+          "seconds": 2.1068549999999995
+        },
+        {
+          "start": "Creating Water",
+          "end": "Finalizing Models",
+          "seconds": 0.029365000000000308
+        },
+        {
+          "start": "Finalizing Models",
+          "end": "[LoadFinalize] finalizing PFS",
+          "seconds": 0.00898600000000016
+        },
+        {
+          "start": "[LoadFinalize] finalizing PFS",
+          "end": "[PathManager::InitNodeLayersThreaded] using 2 threads for 43 node-layers",
+          "seconds": 0.05028399999999955
+        },
+        {
+          "start": "[PathManager::InitNodeLayersThreaded] using 2 threads for 43 node-layers",
+          "end": "[PathManager::Load] Complete. Used 2 threads for 43 node-layers",
+          "seconds": 10.241829
+        },
+        {
+          "start": "[PathManager::Load] Complete. Used 2 threads for 43 node-layers",
+          "end": "[LoadFinalize] finalized PFS (10292ms, checksum 76174e00)",
+          "seconds": 0.00011700000000303135
+        },
+        {
+          "start": "[LoadFinalize] finalized PFS (10292ms, checksum 76174e00)",
+          "end": "Loading LuaRules",
+          "seconds": 4.099999999951365e-05
+        },
+        {
+          "start": "Loading LuaRules",
+          "end": "Loading LuaGaia",
+          "seconds": 4.834820000000001
+        },
+        {
+          "start": "Loading LuaGaia",
+          "end": "Loading LuaUI",
+          "seconds": 0.20454999999999757
+        }
+      ],
+      "engine_wall_seconds": 99.55465516200638,
+      "exact_stream_rows_against_warmup": {
+        "telemetry.jsonl": 28,
+        "team-stats.jsonl": 434,
+        "unit-observations.jsonl": 2815
+      },
+      "exact_checksum_rows_against_official": 11415,
+      "unchanged_cache_files": [
+        {
+          "name": "ArchiveCache22.lua",
+          "size": 4242221,
+          "sha256": "39fab61dcb2fbc1910d7e7803a98f96d4a3472520d96106cec74fc2fa2588999"
+        }
+      ],
+      "footer_receipt": {
+        "status": "matched",
+        "teams_compared": 16,
+        "metrics_compared": 112,
+        "teams_unavailable": [],
+        "mismatches": [],
+        "max_absolute_difference": 2.2737367544323206e-13,
+        "float_tolerance": "two float32 ULPs, minimum 0.000001; integer counters exact"
+      }
+    },
+    {
+      "label": "15-repeat-options-151",
+      "values": {
+        "loading_seconds": 36.622348,
+        "scan_including_write_seconds": 0.23,
+        "load_map_seconds": 1.702,
+        "tile_stage_interval_seconds": 4.516940999999999,
+        "square_stage_interval_seconds": 0.3589400000000005,
+        "pfs_finalize_reported_seconds": 9.331,
+        "lua_rules_stage_interval_seconds": 5.2350780000000015,
+        "lua_ui_to_frame_zero_seconds": 9.663138000000004
+      },
+      "pfs_checksum": "76174e00",
+      "load_message_intervals": [
+        {
+          "start": "Parsing Map Information",
+          "end": "Loading SMF",
+          "seconds": 0.2848879999999998
+        },
+        {
+          "start": "Loading SMF",
+          "end": "Loading Map (242 MB)",
+          "seconds": 0.30022499999999996
+        },
+        {
+          "start": "Loading Map (242 MB)",
+          "end": "Loading GameData Definitions",
+          "seconds": 1.117705
+        },
+        {
+          "start": "Loading GameData Definitions",
+          "end": "Loading Radar Icons",
+          "seconds": 0.5521900000000004
+        },
+        {
+          "start": "Loading Radar Icons",
+          "end": "Loading Sound Definitions",
+          "seconds": 0.36741299999999955
+        },
+        {
+          "start": "Loading Sound Definitions",
+          "end": "Creating Smooth Height Mesh",
+          "seconds": 0.0003809999999999647
+        },
+        {
+          "start": "Creating Smooth Height Mesh",
+          "end": "Creating QuadField & CEGs",
+          "seconds": 0.05121800000000043
+        },
+        {
+          "start": "Creating QuadField & CEGs",
+          "end": "Creating Unit Textures",
+          "seconds": 0.3151199999999994
+        },
+        {
+          "start": "Creating Unit Textures",
+          "end": "Creating Sky",
+          "seconds": 0.000900000000000567
+        },
+        {
+          "start": "Creating Sky",
+          "end": "Loading Weapon Definitions",
+          "seconds": 0.0047839999999998994
+        },
+        {
+          "start": "Loading Weapon Definitions",
+          "end": "Loading Unit Definitions",
+          "seconds": 0.09555899999999973
+        },
+        {
+          "start": "Loading Unit Definitions",
+          "end": "Loading Feature Definitions",
+          "seconds": 0.07977400000000046
+        },
+        {
+          "start": "Loading Feature Definitions",
+          "end": "Initializing Map Features",
+          "seconds": 0.06222100000000008
+        },
+        {
+          "start": "Initializing Map Features",
+          "end": "Loading Models",
+          "seconds": 0.00229499999999927
+        },
+        {
+          "start": "Loading Models",
+          "end": "Creating ShadowHandler",
+          "seconds": 0.0017430000000002721
+        },
+        {
+          "start": "Creating ShadowHandler",
+          "end": "Creating InfoTextureHandler",
+          "seconds": 0.0001509999999997902
+        },
+        {
+          "start": "Creating InfoTextureHandler",
+          "end": "Creating GroundDrawer",
+          "seconds": 3.900000000012227e-05
+        },
+        {
+          "start": "Creating GroundDrawer",
+          "end": "Loading Map Tiles",
+          "seconds": 6.100000000053285e-05
+        },
+        {
+          "start": "Loading Map Tiles",
+          "end": "Loading Square Textures",
+          "seconds": 4.516940999999999
+        },
+        {
+          "start": "Loading Square Textures",
+          "end": "Creating GrassDrawer",
+          "seconds": 0.3589400000000005
+        },
+        {
+          "start": "Creating GrassDrawer",
+          "end": "Creating ProjectileDrawer & UnitDrawer",
+          "seconds": 0.00029600000000051807
+        },
+        {
+          "start": "Creating ProjectileDrawer & UnitDrawer",
+          "end": "Creating Projectile Textures",
+          "seconds": 9.599999999920783e-05
+        },
+        {
+          "start": "Creating Projectile Textures",
+          "end": "Creating Water",
+          "seconds": 2.5325629999999997
+        },
+        {
+          "start": "Creating Water",
+          "end": "Finalizing Models",
+          "seconds": 0.03950100000000134
+        },
+        {
+          "start": "Finalizing Models",
+          "end": "[LoadFinalize] finalizing PFS",
+          "seconds": 0.012858999999998844
+        },
+        {
+          "start": "[LoadFinalize] finalizing PFS",
+          "end": "[PathManager::InitNodeLayersThreaded] using 2 threads for 43 node-layers",
+          "seconds": 0.05030800000000113
+        },
+        {
+          "start": "[PathManager::InitNodeLayersThreaded] using 2 threads for 43 node-layers",
+          "end": "[PathManager::Load] Complete. Used 2 threads for 43 node-layers",
+          "seconds": 9.281152
+        },
+        {
+          "start": "[PathManager::Load] Complete. Used 2 threads for 43 node-layers",
+          "end": "[LoadFinalize] finalized PFS (9331ms, checksum 76174e00)",
+          "seconds": 0.00016699999999758575
+        },
+        {
+          "start": "[LoadFinalize] finalized PFS (9331ms, checksum 76174e00)",
+          "end": "Loading LuaRules",
+          "seconds": 5.9000000000253294e-05
+        },
+        {
+          "start": "Loading LuaRules",
+          "end": "Loading LuaGaia",
+          "seconds": 5.2350780000000015
+        },
+        {
+          "start": "Loading LuaGaia",
+          "end": "Loading LuaUI",
+          "seconds": 0.2043709999999983
+        }
+      ],
+      "engine_wall_seconds": 99.54131050998694,
+      "exact_stream_rows_against_warmup": {
+        "telemetry.jsonl": 28,
+        "team-stats.jsonl": 434,
+        "unit-observations.jsonl": 2815
+      },
+      "exact_checksum_rows_against_official": 11415,
+      "unchanged_cache_files": [
+        {
+          "name": "ArchiveCache22.lua",
+          "size": 4242221,
+          "sha256": "39fab61dcb2fbc1910d7e7803a98f96d4a3472520d96106cec74fc2fa2588999"
+        }
+      ],
+      "footer_receipt": {
+        "status": "matched",
+        "teams_compared": 16,
+        "metrics_compared": 112,
+        "teams_unavailable": [],
+        "mismatches": [],
+        "max_absolute_difference": 2.2737367544323206e-13,
+        "float_tolerance": "two float32 ULPs, minimum 0.000001; integer counters exact"
+      }
+    }
+  ],
+  "arithmetic_means": {
+    "loading_seconds": 36.670867,
+    "scan_including_write_seconds": 0.23299999999999998,
+    "load_map_seconds": 1.7195,
+    "tile_stage_interval_seconds": 4.5006375,
+    "square_stage_interval_seconds": 0.3781585000000005,
+    "pfs_finalize_reported_seconds": 9.811499999999999,
+    "lua_rules_stage_interval_seconds": 5.034949000000001,
+    "lua_ui_to_frame_zero_seconds": 9.631081500000002
+  },
+  "scan_including_write_fraction_of_loading": 0.006353817595858859,
+  "scope": "Two mask-151 repeats of one 385-second public replay. Direct stream comparison is against the retained validated cold warmup; direct every-frame checksum comparison is against the separately retained official stream. Footer is a verified retained receipt, not a new validator run.",
+  "limitations": "Load-message intervals can include overlapping model/path worker activity. Function timers are inclusive and rounded to milliseconds. ScanAllDirs includes directory scanning and cache writing, but excludes earlier ReadCacheData. Byte equality alone does not prove no rewrite. No timings here establish recoverable savings.",
+  "inspected_archive_members": {
+    "benchmark/runs/00-cold-control-warmup/LuaUI/telemetry.jsonl": {
+      "size": 1707,
+      "sha256": "f7f01a061fa2986afaace850a115fce9f1c38eb1a775fa22391b08f8a73fba9e"
+    },
+    "benchmark/runs/00-cold-control-warmup/LuaUI/team-stats.jsonl": {
+      "size": 314667,
+      "sha256": "0af3c156a9db762a5ef8317a3ba73946bf6e6836273b890c31c20407bf218453"
+    },
+    "benchmark/runs/00-cold-control-warmup/LuaUI/unit-observations.jsonl": {
+      "size": 3783402,
+      "sha256": "65fcc5f3f7864e347918abce66723e0ac4d94f0efcb02e756a4334117f722653"
+    },
+    "benchmark/runs/13-repeat-options-151/benchmark.json": {
+      "size": 7571,
+      "sha256": "778f9557337a386c91191ff36fb87170d60234ce6cc008cd7f6bebcb14af2355"
+    },
+    "benchmark/runs/13-repeat-options-151/LuaUI/telemetry.jsonl": {
+      "size": 1707,
+      "sha256": "f7f01a061fa2986afaace850a115fce9f1c38eb1a775fa22391b08f8a73fba9e"
+    },
+    "benchmark/runs/13-repeat-options-151/LuaUI/team-stats.jsonl": {
+      "size": 314667,
+      "sha256": "0af3c156a9db762a5ef8317a3ba73946bf6e6836273b890c31c20407bf218453"
+    },
+    "benchmark/runs/13-repeat-options-151/LuaUI/unit-observations.jsonl": {
+      "size": 3783402,
+      "sha256": "65fcc5f3f7864e347918abce66723e0ac4d94f0efcb02e756a4334117f722653"
+    },
+    "benchmark/runs/13-repeat-options-151/LuaUI/benchmark-sync-checksums.jsonl": {
+      "size": 628388,
+      "sha256": "1b8bf01408cff0bbdc6139e3daf99d1d0e39ba9b8f075f2a8f64229991ffd816"
+    },
+    "benchmark/runs/13-repeat-options-151/experiment-cache-seed.json": {
+      "size": 2884,
+      "sha256": "47c788592b7085776598c06d4eea35591a60e9048fce590ca2a0795d22221447"
+    },
+    "benchmark/runs/13-repeat-options-151/experiment-cache-result.json": {
+      "size": 267,
+      "sha256": "2458d5a63ce5ed82c53035f6db15cc1ac8f83cac6018bf108f193b80e576cf9c"
+    },
+    "benchmark/runs/13-repeat-options-151/infolog.txt": {
+      "size": 178901,
+      "sha256": "712506888fb2e007e34c15bf696fd42d0ee68650a7133b06a3dd3d9cd0c87e62"
+    },
+    "benchmark/runs/15-repeat-options-151/benchmark.json": {
+      "size": 7568,
+      "sha256": "37e32da0d4b3ec65345243d69ceba5532e61f43977667747d9a65c398fa93c61"
+    },
+    "benchmark/runs/15-repeat-options-151/LuaUI/telemetry.jsonl": {
+      "size": 1707,
+      "sha256": "f7f01a061fa2986afaace850a115fce9f1c38eb1a775fa22391b08f8a73fba9e"
+    },
+    "benchmark/runs/15-repeat-options-151/LuaUI/team-stats.jsonl": {
+      "size": 314667,
+      "sha256": "0af3c156a9db762a5ef8317a3ba73946bf6e6836273b890c31c20407bf218453"
+    },
+    "benchmark/runs/15-repeat-options-151/LuaUI/unit-observations.jsonl": {
+      "size": 3783402,
+      "sha256": "65fcc5f3f7864e347918abce66723e0ac4d94f0efcb02e756a4334117f722653"
+    },
+    "benchmark/runs/15-repeat-options-151/LuaUI/benchmark-sync-checksums.jsonl": {
+      "size": 628388,
+      "sha256": "1b8bf01408cff0bbdc6139e3daf99d1d0e39ba9b8f075f2a8f64229991ffd816"
+    },
+    "benchmark/runs/15-repeat-options-151/experiment-cache-seed.json": {
+      "size": 2883,
+      "sha256": "5da099125f355ae20d5386c82b1593d53b4c69eed32030360206700575137bc4"
+    },
+    "benchmark/runs/15-repeat-options-151/experiment-cache-result.json": {
+      "size": 267,
+      "sha256": "2458d5a63ce5ed82c53035f6db15cc1ac8f83cac6018bf108f193b80e576cf9c"
+    },
+    "benchmark/runs/15-repeat-options-151/infolog.txt": {
+      "size": 178900,
+      "sha256": "ee1a0b787433c30e4f43174f535c13406b767a62e1700851c0e69ea92966c5b5"
+    }
+  }
+}
