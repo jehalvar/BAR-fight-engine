@@ -70,6 +70,16 @@ public replay. All 17 complete runs retained the same captured data and frame
 checksums. Small individual effects were inconclusive, and production was not
 changed. This is narrow experimental evidence, not a fleet-wide speed claim.
 
+The subsequent [six-replay installed-official comparison](https://github.com/jehalvar/BAR-fight/blob/ce6a4de/tools/replay_analyser/deploy/experiments/short-official-20260924/RESULTS.md)
+completed six official reference warmups and 36 counterbalanced timed runs on
+public Supreme Isthmus v2.1 games lasting 194–631 seconds. All captures passed
+full validation; the 36 timed runs exactly matched their official reference
+streams and every-frame checksums. Mask 128 reduced summed replay-mean engine
+wall time by 11.39%, and mask 151 by 13.72% (14.51% less CPU). Those are comparisons
+against the installed official executable, with two timed repeats per treatment
+and matched private warm-cache bytes. They do not establish fleet throughput or
+long-game performance, and production routing remains official.
+
 The completed [optimized profile](OPTIMIZED_PROFILE_2026-09-24.md) rechecks the
 remaining mask-151 startup and simulation costs. Independent raw streams,
 every-frame checksums and footer validation passed. Archive scan/cache rewriting
