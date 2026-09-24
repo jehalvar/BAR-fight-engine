@@ -50,6 +50,11 @@ candidate is skipping GPU uniform packing that cannot be uploaded in headless
 mode. Archive-cache maintenance and replay pacing are separate candidates.
 Their proposed implementations and limits are in the audit.
 
+The [deeper source investigation](DEEP_REPLAY_AUDIT_2026-09-24.md) follows these
+regions into feature cache invalidation, animation bookkeeping, path invalidation,
+headless texture loading and an optional offline replay scheduler. Its candidate
+designs remain unapplied and have no measured speedup yet.
+
 ## Replay compatibility and build identity
 
 Keep the base release, fork revision, exact patch set, toolchain, executable
