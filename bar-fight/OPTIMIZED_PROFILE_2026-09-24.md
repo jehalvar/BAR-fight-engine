@@ -9,7 +9,7 @@ implemented, and no PGO/LTO or fleet-throughput claim follows from this profile.
 
 ## Scope and independent correctness proof
 
-The coordinating task ran one diagnostic after all 42 latency-matrix cases and
+The coordinating task ran one diagnostic after all 42 latency-matrix runs and
 restoration completed. It used the retained mask-151 executable
 `c7e4d27047f9fb1dc33b98ba9a69ca418b2e979953c7d03a9ac35c4b3274347a`,
 the same 385-second public Supreme Isthmus replay, two reserved CPUs and the

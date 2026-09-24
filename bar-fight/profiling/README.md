@@ -1,5 +1,8 @@
 # Bounded optimized-engine diagnostic
 
+The diagnostic is complete. See [the verified optimized profile](../OPTIMIZED_PROFILE_2026-09-24.md)
+for results, preserved frame boundaries, correctness checks and limitations.
+
 These scripts preserve the existing experimental executable and frozen replay
 runner. They do not reserve CPUs, change systemd state or publish captures.
 Schedule them only after the official-versus-candidate matrix releases its
