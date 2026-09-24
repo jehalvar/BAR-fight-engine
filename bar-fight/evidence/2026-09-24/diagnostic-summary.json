@@ -1,0 +1,666 @@
+{
+  "schema": 1,
+  "kind": "diagnostic_profiler_attribution_not_timing_ab",
+  "ai_assistance": "OpenAI Codex prepared isolated instrumentation and evidence audit.",
+  "game_id": "8d06b06aa8e31c2640d10862098f8ccb",
+  "replay_sha256": "12e42ae02c08aada80770034a1446f27c469751f9d978d3640acdaf8175d8669",
+  "executable_sha256": "788a964282f9dc83f56a1c7e3e0ae6ca3fd190ac09aacb18e667508923987cc1",
+  "target": 0.75,
+  "engine_wall_seconds": 163.57899212400662,
+  "profiling_overhead_not_measured": true,
+  "snapshots": {
+    "frame0": {
+      "kind": "snapshot",
+      "phase": "frame0",
+      "frame": 0,
+      "names": 45
+    },
+    "shutdown": {
+      "kind": "snapshot",
+      "phase": "shutdown",
+      "frame": 11414,
+      "names": 83
+    }
+  },
+  "meta": {
+    "kind": "meta",
+    "schema": 1,
+    "initial_frame": 0,
+    "engine": "2026.07.04",
+    "engine_full": "2026.07.04 (Headless)",
+    "diagnostic_not_timing_ab": true,
+    "command": "debug 1 0"
+  },
+  "ending": {
+    "kind": "end",
+    "baseline_frame0": true,
+    "game_over_frame": 11414,
+    "last_frame": 11414
+  },
+  "production_streams_equal": {
+    "equal": true,
+    "different_rows": 0,
+    "comparison": "exact JSON numbers; ordered rows and arrays; object-key order ignored",
+    "files": [
+      {
+        "file": "telemetry.jsonl",
+        "equal": true,
+        "left_rows": 28,
+        "right_rows": 28,
+        "different_rows": 0,
+        "examples": []
+      },
+      {
+        "file": "team-stats.jsonl",
+        "equal": true,
+        "left_rows": 434,
+        "right_rows": 434,
+        "different_rows": 0,
+        "examples": []
+      },
+      {
+        "file": "unit-observations.jsonl",
+        "equal": true,
+        "left_rows": 2815,
+        "right_rows": 2815,
+        "different_rows": 0,
+        "examples": []
+      }
+    ]
+  },
+  "checksum_rows": 11415,
+  "all_checksums_equal_official": true,
+  "all_twenty_restored": true,
+  "worker_pids_and_restart_counts_unchanged": true,
+  "ranking": [
+    {
+      "name": "Sim",
+      "baseline_ms": 0,
+      "shutdown_ms": 60714.0078125,
+      "elapsed_ms": 60714.0078125,
+      "fraction_of_sim_inclusive": 1.0
+    },
+    {
+      "name": "ThreadPool::AddTask",
+      "baseline_ms": 4778.91064453125,
+      "shutdown_ms": 31989.763671875,
+      "elapsed_ms": 27210.85302734375,
+      "fraction_of_sim_inclusive": 0.44818080716031217
+    },
+    {
+      "name": "ThreadPool::WaitFor",
+      "baseline_ms": 4411.57421875,
+      "shutdown_ms": 29327.396484375,
+      "elapsed_ms": 24915.822265625,
+      "fraction_of_sim_inclusive": 0.41038012747521585
+    },
+    {
+      "name": "ThreadPool::RunTask",
+      "baseline_ms": 4628.5517578125,
+      "shutdown_ms": 28574.1484375,
+      "elapsed_ms": 23945.5966796875,
+      "fraction_of_sim_inclusive": 0.39439986820895556
+    },
+    {
+      "name": "Sim::Features::UpdatePreFrame",
+      "baseline_ms": 0,
+      "shutdown_ms": 10746.2734375,
+      "elapsed_ms": 10746.2734375,
+      "fraction_of_sim_inclusive": 0.17699825501039518
+    },
+    {
+      "name": "Lua::Callins::Synced",
+      "baseline_ms": 245.14463806152344,
+      "shutdown_ms": 10243.15625,
+      "elapsed_ms": 9998.011611938477,
+      "fraction_of_sim_inclusive": 0.16467388617820833
+    },
+    {
+      "name": "Sim::Script",
+      "baseline_ms": 0,
+      "shutdown_ms": 9450.8232421875,
+      "elapsed_ms": 9450.8232421875,
+      "fraction_of_sim_inclusive": 0.15566133060057571
+    },
+    {
+      "name": "CUnitScriptEngine::Tick",
+      "baseline_ms": 0,
+      "shutdown_ms": 9247.62890625,
+      "elapsed_ms": 9247.62890625,
+      "fraction_of_sim_inclusive": 0.1523145850428617
+    },
+    {
+      "name": "Sim::Path",
+      "baseline_ms": 0,
+      "shutdown_ms": 9158.1484375,
+      "elapsed_ms": 9158.1484375,
+      "fraction_of_sim_inclusive": 0.15084078234108095
+    },
+    {
+      "name": "Sim::Path::MapUpdates",
+      "baseline_ms": 0,
+      "shutdown_ms": 8285.6396484375,
+      "elapsed_ms": 8285.6396484375,
+      "fraction_of_sim_inclusive": 0.13646998356665271
+    },
+    {
+      "name": "Sim::GameFrame",
+      "baseline_ms": 0,
+      "shutdown_ms": 8221.7578125,
+      "elapsed_ms": 8221.7578125,
+      "fraction_of_sim_inclusive": 0.1354178073351843
+    },
+    {
+      "name": "Sim::Unit::MoveType",
+      "baseline_ms": 0,
+      "shutdown_ms": 7407.234375,
+      "elapsed_ms": 7407.234375,
+      "fraction_of_sim_inclusive": 0.12200206578151433
+    },
+    {
+      "name": "Update",
+      "baseline_ms": 4085.2880859375,
+      "shutdown_ms": 11340.4990234375,
+      "elapsed_ms": 7255.2109375,
+      "fraction_of_sim_inclusive": 0.11949813887934892
+    },
+    {
+      "name": "Update::WorldDrawer",
+      "baseline_ms": 3509.068115234375,
+      "shutdown_ms": 9174.4482421875,
+      "elapsed_ms": 5665.380126953125,
+      "fraction_of_sim_inclusive": 0.09331257037830927
+    },
+    {
+      "name": "Draw",
+      "baseline_ms": 1495.4080810546875,
+      "shutdown_ms": 6827.1494140625,
+      "elapsed_ms": 5331.7413330078125,
+      "fraction_of_sim_inclusive": 0.08781731803101452
+    },
+    {
+      "name": "Lua::Callins::Unsynced",
+      "baseline_ms": 726.8220825195312,
+      "shutdown_ms": 5954.24609375,
+      "elapsed_ms": 5227.424011230469,
+      "fraction_of_sim_inclusive": 0.08609914251376813
+    },
+    {
+      "name": "Draw::World",
+      "baseline_ms": 1039.1715087890625,
+      "shutdown_ms": 5610.1484375,
+      "elapsed_ms": 4570.9769287109375,
+      "fraction_of_sim_inclusive": 0.07528702343003371
+    },
+    {
+      "name": "CFeatureDrawerBase::Update",
+      "baseline_ms": 3379.81884765625,
+      "shutdown_ms": 7205.87890625,
+      "elapsed_ms": 3826.06005859375,
+      "fraction_of_sim_inclusive": 0.06301774823381084
+    },
+    {
+      "name": "Sim::Unit::Update",
+      "baseline_ms": 0,
+      "shutdown_ms": 3527.7734375,
+      "elapsed_ms": 3527.7734375,
+      "fraction_of_sim_inclusive": 0.05810476963396395
+    },
+    {
+      "name": "Misc::Profiler::AddTime",
+      "baseline_ms": 420.3822021484375,
+      "shutdown_ms": 2869.60009765625,
+      "elapsed_ms": 2449.2178955078125,
+      "fraction_of_sim_inclusive": 0.04034024410102539
+    },
+    {
+      "name": "Sim::Unit::SlowUpdate",
+      "baseline_ms": 0,
+      "shutdown_ms": 2186.447265625,
+      "elapsed_ms": 2186.447265625,
+      "fraction_of_sim_inclusive": 0.03601223744571919
+    },
+    {
+      "name": "Sim::Unit::MoveType::1::UpdateTraversalPlan",
+      "baseline_ms": 0,
+      "shutdown_ms": 2092.31201171875,
+      "elapsed_ms": 2092.31201171875,
+      "fraction_of_sim_inclusive": 0.03446176734338361
+    },
+    {
+      "name": "Sim::Unit::UpdatePreFrame",
+      "baseline_ms": 0,
+      "shutdown_ms": 1950.5406494140625,
+      "elapsed_ms": 1950.5406494140625,
+      "fraction_of_sim_inclusive": 0.0321266989232175
+    },
+    {
+      "name": "Sim::Unit::MoveType::5::Update",
+      "baseline_ms": 0,
+      "shutdown_ms": 1702.1259765625,
+      "elapsed_ms": 1702.1259765625,
+      "fraction_of_sim_inclusive": 0.028035144407186716
+    },
+    {
+      "name": "Sim::Los",
+      "baseline_ms": 0,
+      "shutdown_ms": 1651.102294921875,
+      "elapsed_ms": 1651.102294921875,
+      "fraction_of_sim_inclusive": 0.027194750509979358
+    },
+    {
+      "name": "CUnitDrawerBase::Update",
+      "baseline_ms": 72.24394226074219,
+      "shutdown_ms": 1616.7620849609375,
+      "elapsed_ms": 1544.5181427001953,
+      "fraction_of_sim_inclusive": 0.025439238790989596
+    },
+    {
+      "name": "Sim::Unit::MoveType::3::CollisionDetection",
+      "baseline_ms": 0,
+      "shutdown_ms": 1185.82470703125,
+      "elapsed_ms": 1185.82470703125,
+      "fraction_of_sim_inclusive": 0.019531319867622188
+    },
+    {
+      "name": "Sim::Unit::Weapon",
+      "baseline_ms": 0,
+      "shutdown_ms": 1138.21923828125,
+      "elapsed_ms": 1138.21923828125,
+      "fraction_of_sim_inclusive": 0.01874722620513465
+    },
+    {
+      "name": "Sim::Unit::MoveType::2::UpdatePreCollisions",
+      "baseline_ms": 0,
+      "shutdown_ms": 1106.7713623046875,
+      "elapsed_ms": 1106.7713623046875,
+      "fraction_of_sim_inclusive": 0.018229258818206723
+    },
+    {
+      "name": "Sim::Unit::UpdateWeaponVectors",
+      "baseline_ms": 0,
+      "shutdown_ms": 965.1594848632812,
+      "elapsed_ms": 965.1594848632812,
+      "fraction_of_sim_inclusive": 0.01589681721957698
+    },
+    {
+      "name": "Draw::World::Models::Opaque",
+      "baseline_ms": 327.4140319824219,
+      "shutdown_ms": 1082.22021484375,
+      "elapsed_ms": 754.8061828613281,
+      "fraction_of_sim_inclusive": 0.012432158739913166
+    },
+    {
+      "name": "Update::EventHandler",
+      "baseline_ms": 270.22076416015625,
+      "shutdown_ms": 896.8956298828125,
+      "elapsed_ms": 626.6748657226562,
+      "fraction_of_sim_inclusive": 0.01032175091550511
+    },
+    {
+      "name": "Draw::Screen",
+      "baseline_ms": 333.7792053222656,
+      "shutdown_ms": 908.4725341796875,
+      "elapsed_ms": 574.6933288574219,
+      "fraction_of_sim_inclusive": 0.009465580507091844
+    },
+    {
+      "name": "Lua::CollectGarbage::Synced",
+      "baseline_ms": 122.28572845458984,
+      "shutdown_ms": 618.6369018554688,
+      "elapsed_ms": 496.3511734008789,
+      "fraction_of_sim_inclusive": 0.008175233216916516
+    },
+    {
+      "name": "CFeatureDrawer::Draw",
+      "baseline_ms": 265.8201599121094,
+      "shutdown_ms": 752.291748046875,
+      "elapsed_ms": 486.4715881347656,
+      "fraction_of_sim_inclusive": 0.008012509891244723
+    },
+    {
+      "name": "CFeatureDrawer::DrawOpaquePass",
+      "baseline_ms": 261.7206726074219,
+      "shutdown_ms": 741.7644653320312,
+      "elapsed_ms": 480.0437927246094,
+      "fraction_of_sim_inclusive": 0.007906639835194282
+    },
+    {
+      "name": "Sim::Features",
+      "baseline_ms": 0,
+      "shutdown_ms": 455.7132873535156,
+      "elapsed_ms": 455.7132873535156,
+      "fraction_of_sim_inclusive": 0.007505900265402869
+    },
+    {
+      "name": "Sim::Projectiles",
+      "baseline_ms": 0,
+      "shutdown_ms": 454.3321228027344,
+      "elapsed_ms": 454.3321228027344,
+      "fraction_of_sim_inclusive": 0.007483151568676297
+    },
+    {
+      "name": "Lua::CollectGarbage::Unsynced",
+      "baseline_ms": 157.44407653808594,
+      "shutdown_ms": 564.8970947265625,
+      "elapsed_ms": 407.45301818847656,
+      "fraction_of_sim_inclusive": 0.006711021605537772
+    },
+    {
+      "name": "Draw::Screen::InputReceivers",
+      "baseline_ms": 206.492431640625,
+      "shutdown_ms": 574.1058349609375,
+      "elapsed_ms": 367.6134033203125,
+      "fraction_of_sim_inclusive": 0.0060548367100981765
+    },
+    {
+      "name": "ECS::PathSpeedModInfoSystem::Update",
+      "baseline_ms": 0,
+      "shutdown_ms": 291.13067626953125,
+      "elapsed_ms": 291.13067626953125,
+      "fraction_of_sim_inclusive": 0.0047951154397287594
+    },
+    {
+      "name": "Lua::CopyData",
+      "baseline_ms": 24.293607711791992,
+      "shutdown_ms": 310.5814514160156,
+      "elapsed_ms": 286.28784370422363,
+      "fraction_of_sim_inclusive": 0.004715350773553805
+    },
+    {
+      "name": "Draw::World::Models::Alpha",
+      "baseline_ms": 149.8625946044922,
+      "shutdown_ms": 428.2537841796875,
+      "elapsed_ms": 278.3911895751953,
+      "fraction_of_sim_inclusive": 0.004585287639632302
+    },
+    {
+      "name": "Sim::BasicMapDamage",
+      "baseline_ms": 0,
+      "shutdown_ms": 273.84820556640625,
+      "elapsed_ms": 273.84820556640625,
+      "fraction_of_sim_inclusive": 0.004510461678170181
+    },
+    {
+      "name": "CUnitDrawer::Draw",
+      "baseline_ms": 45.39934539794922,
+      "shutdown_ms": 291.9362487792969,
+      "elapsed_ms": 246.53690338134766,
+      "fraction_of_sim_inclusive": 0.0040606264067217426
+    },
+    {
+      "name": "CUnitDrawer::DrawOpaquePass",
+      "baseline_ms": 27.288455963134766,
+      "shutdown_ms": 258.2787780761719,
+      "elapsed_ms": 230.9903221130371,
+      "fraction_of_sim_inclusive": 0.003804563896134033
+    },
+    {
+      "name": "Sim::BasicMapDamage::Los",
+      "baseline_ms": 0,
+      "shutdown_ms": 219.869140625,
+      "elapsed_ms": 219.869140625,
+      "fraction_of_sim_inclusive": 0.003621390656732969
+    },
+    {
+      "name": "Draw::World::Particles",
+      "baseline_ms": 15.905678749084473,
+      "shutdown_ms": 227.45083618164062,
+      "elapsed_ms": 211.54515743255615,
+      "fraction_of_sim_inclusive": 0.003484289129550801
+    },
+    {
+      "name": "Sim::Projectiles::Collisions",
+      "baseline_ms": 0,
+      "shutdown_ms": 202.8495635986328,
+      "elapsed_ms": 202.8495635986328,
+      "fraction_of_sim_inclusive": 0.003341066928493386
+    },
+    {
+      "name": "Sim::Projectiles::Update",
+      "baseline_ms": 0,
+      "shutdown_ms": 186.13449096679688,
+      "elapsed_ms": 186.13449096679688,
+      "fraction_of_sim_inclusive": 0.0030657585897084345
+    },
+    {
+      "name": "Sim::Unit::UpdatePostAnimation",
+      "baseline_ms": 0,
+      "shutdown_ms": 180.34860229492188,
+      "elapsed_ms": 180.34860229492188,
+      "fraction_of_sim_inclusive": 0.0029704611636227896
+    },
+    {
+      "name": "CFeatureDrawer::DrawAlphaPass",
+      "baseline_ms": 124.73556518554688,
+      "shutdown_ms": 295.1615905761719,
+      "elapsed_ms": 170.426025390625,
+      "fraction_of_sim_inclusive": 0.0028070297371397897
+    },
+    {
+      "name": "Draw::World::Decals",
+      "baseline_ms": 3.320425033569336,
+      "shutdown_ms": 150.47911071777344,
+      "elapsed_ms": 147.1586856842041,
+      "fraction_of_sim_inclusive": 0.0024238012113887595
+    },
+    {
+      "name": "Sim::Path::Requests",
+      "baseline_ms": 0,
+      "shutdown_ms": 135.76661682128906,
+      "elapsed_ms": 135.76661682128906,
+      "fraction_of_sim_inclusive": 0.002236166277155846
+    },
+    {
+      "name": "Draw::World::Terrain",
+      "baseline_ms": 63.4309196472168,
+      "shutdown_ms": 162.14300537109375,
+      "elapsed_ms": 98.71208572387695,
+      "fraction_of_sim_inclusive": 0.0016258535596715092
+    },
+    {
+      "name": "Draw::World::UpdateReflTex",
+      "baseline_ms": 42.87129211425781,
+      "shutdown_ms": 138.74179077148438,
+      "elapsed_ms": 95.87049865722656,
+      "fraction_of_sim_inclusive": 0.0015790507349358089
+    },
+    {
+      "name": "CUnitDrawer::DrawAlphaPass",
+      "baseline_ms": 12.581951141357422,
+      "shutdown_ms": 103.67111206054688,
+      "elapsed_ms": 91.08916091918945,
+      "fraction_of_sim_inclusive": 0.0015002989293754993
+    },
+    {
+      "name": "Sim::Projectiles::UpdateSyncedST",
+      "baseline_ms": 0,
+      "shutdown_ms": 77.39051055908203,
+      "elapsed_ms": 77.39051055908203,
+      "fraction_of_sim_inclusive": 0.001274673067178883
+    },
+    {
+      "name": "Draw::Screen::DrawScreen",
+      "baseline_ms": 34.37503433227539,
+      "shutdown_ms": 110.11677551269531,
+      "elapsed_ms": 75.74174118041992,
+      "fraction_of_sim_inclusive": 0.0012475167413478832
+    },
+    {
+      "name": "Sim::SmoothHeightMesh::UpdateSmoothMesh",
+      "baseline_ms": 0,
+      "shutdown_ms": 73.39762878417969,
+      "elapsed_ms": 73.39762878417969,
+      "fraction_of_sim_inclusive": 0.0012089076545704226
+    },
+    {
+      "name": "Draw::World::Models::Projectiles",
+      "baseline_ms": 12.825162887573242,
+      "shutdown_ms": 85.2643051147461,
+      "elapsed_ms": 72.43914222717285,
+      "fraction_of_sim_inclusive": 0.0011931207449009625
+    },
+    {
+      "name": "Sim::Unit::MoveType::4::ProcessCollisionEvents",
+      "baseline_ms": 0,
+      "shutdown_ms": 66.80609130859375,
+      "elapsed_ms": 66.80609130859375,
+      "fraction_of_sim_inclusive": 0.0011003406580390414
+    },
+    {
+      "name": "ECS::SyncUpdatedPathsSystem::Update",
+      "baseline_ms": 0,
+      "shutdown_ms": 59.19798278808594,
+      "elapsed_ms": 59.19798278808594,
+      "fraction_of_sim_inclusive": 0.0009750300617759262
+    },
+    {
+      "name": "Draw::World::Terrain::ROAM::DrawBorderMesh",
+      "baseline_ms": 24.076467514038086,
+      "shutdown_ms": 76.96070098876953,
+      "elapsed_ms": 52.884233474731445,
+      "fraction_of_sim_inclusive": 0.0008710384206236417
+    },
+    {
+      "name": "Sim::Projectiles::UpdateUnsyncedMT",
+      "baseline_ms": 0,
+      "shutdown_ms": 49.27054977416992,
+      "elapsed_ms": 49.27054977416992,
+      "fraction_of_sim_inclusive": 0.0008115186519448637
+    },
+    {
+      "name": "Misc::SwapBuffers",
+      "baseline_ms": 16.619220733642578,
+      "shutdown_ms": 57.13937759399414,
+      "elapsed_ms": 40.52015686035156,
+      "fraction_of_sim_inclusive": 0.0006673938736755431
+    },
+    {
+      "name": "Draw::World::Water",
+      "baseline_ms": 17.933427810668945,
+      "shutdown_ms": 54.00173568725586,
+      "elapsed_ms": 36.068307876586914,
+      "fraction_of_sim_inclusive": 0.0005940689665550468
+    },
+    {
+      "name": "Update::ReadMap::UHM",
+      "baseline_ms": 19.624540328979492,
+      "shutdown_ms": 52.42848205566406,
+      "elapsed_ms": 32.80394172668457,
+      "fraction_of_sim_inclusive": 0.0005403026897514545
+    },
+    {
+      "name": "ECS::RequeuePathsSystem::Update",
+      "baseline_ms": 0,
+      "shutdown_ms": 20.73512840270996,
+      "elapsed_ms": 20.73512840270996,
+      "fraction_of_sim_inclusive": 0.000341521325140406
+    },
+    {
+      "name": "Draw::OpaqueObjects::Debug",
+      "baseline_ms": 6.397662162780762,
+      "shutdown_ms": 27.000980377197266,
+      "elapsed_ms": 20.603318214416504,
+      "fraction_of_sim_inclusive": 0.00033935032386668806
+    },
+    {
+      "name": "ECS::RemoveDeadPathsSystem::Update",
+      "baseline_ms": 0,
+      "shutdown_ms": 20.297815322875977,
+      "elapsed_ms": 20.297815322875977,
+      "fraction_of_sim_inclusive": 0.0003343184885036859
+    },
+    {
+      "name": "ECS::UnitTrapCheckSystem::Update",
+      "baseline_ms": 0,
+      "shutdown_ms": 13.492653846740723,
+      "elapsed_ms": 13.492653846740723,
+      "fraction_of_sim_inclusive": 0.00022223296291704877
+    },
+    {
+      "name": "ModelUniformsUploader::Update",
+      "baseline_ms": 6.061291217803955,
+      "shutdown_ms": 14.467230796813965,
+      "elapsed_ms": 8.40593957901001,
+      "fraction_of_sim_inclusive": 0.00013845140325721285
+    },
+    {
+      "name": "Update::WorldDrawer::{Sky,Water}",
+      "baseline_ms": 0,
+      "shutdown_ms": 6.952797889709473,
+      "elapsed_ms": 6.952797889709473,
+      "fraction_of_sim_inclusive": 0.00011451719529340653
+    },
+    {
+      "name": "Draw::World::Foliage",
+      "baseline_ms": 2.518748044967651,
+      "shutdown_ms": 7.684714794158936,
+      "elapsed_ms": 5.165966749191286,
+      "fraction_of_sim_inclusive": 8.508690062341263e-05
+    },
+    {
+      "name": "Sim::BasicMapDamage::Path",
+      "baseline_ms": 0,
+      "shutdown_ms": 3.228705883026123,
+      "elapsed_ms": 3.228705883026123,
+      "fraction_of_sim_inclusive": 5.317892854309951e-05
+    },
+    {
+      "name": "Draw::DrawGenesis",
+      "baseline_ms": 1.507128953933716,
+      "shutdown_ms": 3.742635011672974,
+      "elapsed_ms": 2.235506057739258,
+      "fraction_of_sim_inclusive": 3.6820268308477646e-05
+    },
+    {
+      "name": "Draw::World::DrawWorld",
+      "baseline_ms": 1.596511006355286,
+      "shutdown_ms": 3.226751089096069,
+      "elapsed_ms": 1.6302400827407828,
+      "fraction_of_sim_inclusive": 2.6851136030673035e-05
+    },
+    {
+      "name": "Misc::InputHandler::PushEvents",
+      "baseline_ms": 0.7257040143013,
+      "shutdown_ms": 1.396559000015259,
+      "elapsed_ms": 0.670854985713959,
+      "fraction_of_sim_inclusive": 1.1049426810790131e-05
+    },
+    {
+      "name": "???",
+      "baseline_ms": 0,
+      "shutdown_ms": 0.0,
+      "elapsed_ms": 0.0,
+      "fraction_of_sim_inclusive": 0.0
+    },
+    {
+      "name": "Draw::World::UpdateShadingTex",
+      "baseline_ms": 0.012481999583542,
+      "shutdown_ms": 0.012481999583542,
+      "elapsed_ms": 0.0,
+      "fraction_of_sim_inclusive": 0.0
+    },
+    {
+      "name": "Draw::World::UpdateSkyTex",
+      "baseline_ms": 0.000190999999177,
+      "shutdown_ms": 0.000190999999177,
+      "elapsed_ms": 0.0,
+      "fraction_of_sim_inclusive": 0.0
+    },
+    {
+      "name": "Draw::World::UpdateSpecTex",
+      "baseline_ms": 0.014286000281572,
+      "shutdown_ms": 0.014286000281572,
+      "elapsed_ms": 0.0,
+      "fraction_of_sim_inclusive": 0.0
+    }
+  ],
+  "accounting": "Inclusive buckets overlap. Sim children and Lua are not additive. MT worker timings can overlap main-thread wall time. Shutdown-minus-frame0 includes post-game teardown up to widget shutdown; names come from the periodically refreshed profiler name list, raw totals are current.",
+  "source_files_sha256": {
+    "analyse_profile.py": "062f91a91b14f0abd48260f1ce4514d7ec986cee56157d1824267907d4bdd904",
+    "benchmark_cpu_reservation.py": "7268bea7061319be6f916889ad32c6aceda1349a98b01ff4a3fe6a36633762f9",
+    "launch_profile.py": "bc4276aa367b8e4048e43e9514f3dc9693554f6057a529be9968e758d182962d",
+    "profiler_widget.lua": "616024566592e34354dbd290a232e1477698be6f1c5164c60b80b363a6783587",
+    "run_profile.py": "ac4f54d709fee66f432773f9894a5c71b65fce76edd46dc1a8cb56f35989a475"
+  }
+}

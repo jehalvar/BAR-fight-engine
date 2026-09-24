@@ -70,6 +70,10 @@ CONFIG(int, AutohostPort).defaultValue(0).description("Which port should the eng
 CONFIG(int, ServerSleepTime).defaultValue(5).description("Number of milliseconds to sleep per tick for the server thread. Lower values have marginally higher CPU load, while high values can introduce additional latency.");
 CONFIG(int, SpeedControl).defaultValue(1).minimumValue(1).maximumValue(2)
 	.description("Sets how server adjusts speed according to player's load (CPU), 1: use average, 2: use highest");
+#ifdef HEADLESS
+CONFIG(float, ReplayCpuUsageTarget).defaultValue(0.75f).minimumValue(0.75f).maximumValue(0.95f)
+	.description("Experimental CPU target for headless demo playback with SpeedControl=2.");
+#endif
 CONFIG(bool, AllowSpectatorJoin).defaultValue(true).dedicatedValue(false).description("allow any unauthenticated clients to join as spectator with any name, name will be prefixed with ~");
 CONFIG(bool, WhiteListAdditionalPlayers).defaultValue(true);
 CONFIG(bool, ServerRecordDemos).defaultValue(false).dedicatedValue(true);
@@ -186,6 +190,12 @@ void CGameServer::Initialize()
 		Message(spring::format(PlayingDemo, myGameSetup->demoName.c_str()));
 		demoReader.reset(new CDemoReader(myGameSetup->demoName, modGameTime + 0.1f));
 	}
+
+#ifdef HEADLESS
+	if (demoReader != nullptr && curSpeedCtrl == 2) {
+		LOG("[ReplayCpuTargetExperiment] target=%.2f", configHandler->GetFloat("ReplayCpuUsageTarget"));
+	}
+#endif
 
 	// initialize players, teams & ais
 	{
@@ -940,6 +950,11 @@ void CGameServer::LagProtection()
 		 * lower than the nominal sim FPS, i.e. the ideal CPU% to aim at is less than 100%. The constants
 		 * below have been determined empirically. The max is of course higher than the median. */
 		float wantedCpuUsage = (curSpeedCtrl == 1) ?  0.60f : 0.75f;
+#ifdef HEADLESS
+		if (demoReader != nullptr && curSpeedCtrl == 2) {
+			wantedCpuUsage = configHandler->GetFloat("ReplayCpuUsageTarget");
+		}
+#endif
 
 		//the following line can actually make it go faster than wanted normal speed ( userSpeedFactor )
 		//if the current cpu of the target is smaller than the aimed cpu target but the clamp will cap it

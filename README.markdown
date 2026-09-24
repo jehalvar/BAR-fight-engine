@@ -1,3 +1,16 @@
+# BAR Fight replay engine experiments
+
+This fork studies faster, deterministic replay analysis for [BAR Fight](https://bar-fight.com).
+The working branch is `bar-fight/replay-2026.07.04`, based on Recoil release
+`2026.07.04` (`de69361239d8c8b1012dba3f5aa3122954ea4da3`).
+
+Read the [fork scope and validation rules](bar-fight/README.md) and
+[source audit](bar-fight/SOURCE_AUDIT.md). The CPU-target experiment reproduced
+the recorded data but found no additional speed gain above 75%. Other proposed
+changes remain experimental; this fork has not replaced BAR Fight's production engine.
+
+Upstream documentation follows.
+
 # Recoil is an open source real time strategy game engine
 
 Visit the [Official Website](https://recoilengine.org)
