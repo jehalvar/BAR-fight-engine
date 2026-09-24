@@ -1,6 +1,7 @@
 # BAR Fight replay engine experiments
 
 This fork studies faster, deterministic replay analysis for [BAR Fight](https://bar-fight.com).
+Changes are for BAR Fight's own use; upstream contributions are not planned.
 The working branch is `bar-fight/replay-2026.07.04`, based on Recoil release
 `2026.07.04` (`de69361239d8c8b1012dba3f5aa3122954ea4da3`).
 

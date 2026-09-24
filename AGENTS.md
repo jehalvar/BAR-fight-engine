@@ -1,5 +1,16 @@
 # AGENTS.md - Coding Agent Guidelines for RecoilEngine
 
+## BAR Fight fork scope
+
+This checkout is maintained in `jehalvar/BAR-fight-engine` for BAR Fight's own
+replay analysis. The owner confirmed on 24 September 2026 that changes are not
+intended for upstream contribution. Publish to the `bar-fight` remote. Do not
+submit upstream pull requests, issues or discussions unless explicitly asked.
+The retained upstream AI policy applies to outside contributions to Recoil;
+AI-assisted development within this fork is authorized. Preserve licensing,
+attribution, deterministic replay behavior and the validation requirements in
+`bar-fight/README.md`.
+
 This document provides essential information for AI coding agents working on the RecoilEngine codebase.
 
 ## Project Overview

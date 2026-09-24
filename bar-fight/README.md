@@ -3,6 +3,19 @@
 This branch provides a versioned place to investigate engine costs while
 reproducing the original match and keeping every captured measurement.
 
+## Ownership and purpose
+
+The owner confirmed on 24 September 2026 that this fork is for BAR Fight's own
+replay analysis. Develop and publish changes in `jehalvar/BAR-fight-engine`;
+there are no plans to contribute them upstream. Do not submit upstream pull
+requests, issues or discussions for this work unless the owner explicitly
+changes that instruction. Upstream remains a source for reference and updates.
+
+AI-assisted development is part of this fork's workflow. The retained upstream
+`AI_POLICY.md` describes outside contributions to Recoil; it does not add an
+upstream-submission requirement to work in this fork. Preserve the engine's
+licensing, attribution and replay correctness checks.
+
 ## Base and current implementation
 
 - Upstream: `beyond-all-reason/RecoilEngine`.
@@ -78,5 +91,4 @@ extend the workload to medium or long games.
 OpenAI Codex assisted with the source audit, experimental scheduling patch,
 profiling tooling and reports. Recoil remains the upstream project; its original
 licensing and attribution are preserved. No issue, discussion or pull request
-has been submitted to upstream as part of this work. Upstream's outside-
-contribution policy applies if a contribution is proposed later.
+has been submitted to upstream as part of this work, and none is planned.
