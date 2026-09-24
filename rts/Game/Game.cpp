@@ -248,6 +248,10 @@ CGame::CGame(const std::string& mapFileName, const std::string& modFileName, ILo
 	if (gameServer != nullptr && gameServer->GetDemoReader() != nullptr && gameServer->GetGameSetup()->onlyLocal)
 		replayPerformanceOptions = configHandler->GetInt("ReplayPerformanceOptions");
 #endif
+#ifndef SYNCCHECK
+	// Offline EOF draining relies on an acknowledgment for every simulation frame.
+	replayPerformanceOptions &= ~ReplayPerformance::OFFLINE_PLAYBACK;
+#endif
 	ReplayPerformance::options.store(replayPerformanceOptions, std::memory_order_relaxed);
 	LOG("[ReplayPerformanceExperiment] options=%u", replayPerformanceOptions);
 

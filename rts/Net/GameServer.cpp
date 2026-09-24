@@ -478,6 +478,8 @@ bool CGameServer::SendDemoData(int targetFrameNum)
 	// messages even when a recording contains long runs of non-frame packets.
 	const bool offline = ReplayPerformance::OfflinePlayback() && gameHasStarted && !isPaused
 		&& targetFrameNum == -1 && HasLocalClient() && myGameSetup->onlyLocal;
+	if (offline && players[localClientNumber].myState >= GameParticipant::DISCONNECTING)
+		return ret;
 	const auto* offlineLink = offline
 		? dynamic_cast<const netcode::CLocalConnection*>(players[localClientNumber].clientLink.get())
 		: nullptr;
